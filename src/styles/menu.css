@@ -1,0 +1,38 @@
+.navbar {
+  border-radius: 30px;
+  background-color: #7e8c54;
+  font-size: 20px;
+  text-align: center;
+  padding: 10px;
+  position: sticky;
+  top: 0;
+}
+
+.navbar-brand {
+  color: white !important;
+  font-weight: bold;
+  font-size: 50px;
+  margin-left: 10px;
+}
+
+.nav-link {
+  color: white !important;
+  font-weight: bold;
+  font-size: 20px;
+  margin-left: 10px;
+  text-align: center;
+  padding: 10px;
+}
+
+.custom-footer {
+  background-color: #7e8c54;
+  border-radius: 15px;
+  margin-top: 20px;
+  padding: 10px;
+  text-align: center;
+  color: white;
+  position: fixed;
+    bottom: 0;
+    width: 80%;
+    margin-left: 10%;
+}
