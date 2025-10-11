@@ -1,0 +1,31 @@
+.card-adicionar {
+  width: 600px; /* Largura do quadrado */
+  height: 350px; /* Altura do quadrado */
+  background-color: rgba(
+    126,
+    140,
+    84,
+    0.2
+  ); /* Cor de fundo com 50% de transparência */
+  border: 2px solid #a1a594; /* Borda sólida com uma cor mais escura */
+  border-radius: 15px; /* Bordas arredondadas para um visual mais suave */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.753); /* Sombra para realçar o card */
+  padding: 20px; /* Espaçamento interno para o texto não colar nas bordas */
+  color: white; /* Cor do texto */
+  font-size: 200px;
+  margin-left: 10%; /* Empurra o card um pouco para o centro */
+  align-content: center;
+  text-align: center;
+}
+
+.card-adicionar h2 {
+  color: white; /* Cor do texto */
+  font-size: 100px;
+}
+
+.adicionar-container {
+  /* Centraliza o container do card na tela, se necessário */
+  display: flex;
+  justify-content: flex-start; /* Alinha o card à esquerda */
+  padding: 50px; /* Espaçamento geral */
+}

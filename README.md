@@ -1,308 +1,196 @@
-# PokePédia - Enciclopédia do Mundo Pokémon
+# NeXo - Seu Conector de Metas e Finanças
 
-## Descrição do Projeto
+## 📝 Descrição do Projeto
 
-O PokePédia é uma aplicação web desenvolvida em React que permite aos usuários explorar o universo Pokémon através de consultas detalhadas, análise de batalhas e gerenciamento de itens. O sistema utiliza a PokéAPI para fornecer informações completas sobre Pokémon, incluindo stats, habilidades, movimentos, evoluções e análises estratégicas de combate.
+O **NeXo** é uma aplicação web em desenvolvimento, projetada para ser uma ferramenta central na vida dos usuários para o planejamento e acompanhamento de objetivos pessoais e profissionais, além de oferecer um controle financeiro integrado. A ambição do projeto é conectar as metas de vida com a saúde financeira, permitindo que os usuários estabeleçam prazos, monitorem o progresso de suas metas e gerenciem seus gastos mensais de forma inteligente.
 
-**Principais funcionalidades:**
-- Consulta detalhada de Pokémon com informações completas
-- Sistema de análise de batalhas entre Pokémon
-- Consulta de itens e berries
-- Sistema de autenticação de usuários
-- Interface responsiva e intuitiva
+O sistema visa não apenas registrar dados, mas também fornecer insights e dicas para ajudar os usuários a alcançarem seus objetivos de forma mais eficiente e a manterem suas finanças em ordem.
 
-**Tecnologias utilizadas:**
-- **React.js** – Biblioteca principal para construção da interface
-- **React Router DOM** – Gerenciamento de rotas e navegação entre páginas
-- **React Bootstrap** – Componentes visuais baseados no Bootstrap
-- **Bootstrap** – Framework CSS para estilização responsiva
-- **JavaScript (ES6+)** – Lógica da aplicação e manipulação de dados
-- **Axios** – Realização de requisições HTTP (GET)
-- **Vite** – Ferramenta para desenvolvimento e build de aplicações React
-- **React Spinners** (Loading indicators)
-- **React Icons** (Ícones)
-- **Private Routes** (Proteção de rotas)
-- **EmailJS** (Envio de emails)
-- **PokéAPI** (Fonte de dados)
-- **HTML5 & CSS3** – Estrutura e estilos personalizados
-- **LocalStorage** (Persistência local)
+## ⚠️ Status do Projeto
 
-## Instruções de Execução
+**Em fase inicial de desenvolvimento.** As funcionalidades descritas abaixo representam o escopo planejado para a versão final do projeto. A estrutura do código, tecnologias e exemplos de dados estão sujeitos a alterações.
+
+## ✨ Principais Funcionalidades (Planejadas)
+
+### 🎯 Gestão de Metas e Objetivos
+
+- **Criação de Metas:** Definir objetivos e metas com descrições detalhadas.
+- **Prazos e Timelines:** Estabelecer datas de início e de conclusão para cada meta.
+- **Acompanhamento de Progresso:** Visualizar o avanço de cada objetivo de forma clara (ex: barra de progresso).
+- **Histórico e Análise:** Rever metas concluídas e analisar o desempenho em relação aos prazos propostos.
+
+### 💰 Controle Financeiro
+
+- **Registro de Gastos:** Anotar despesas mensais de forma simples e rápida.
+- **Categorização:** Classificar gastos em categorias personalizáveis (moradia, alimentação, lazer, etc.).
+- **Dashboard Financeiro:** Visualizar um resumo mensal das finanças com gráficos intuitivos.
+- **Dicas e Insights:** Receber sugestões automatizadas para otimização de gastos e melhoria da saúde financeira.
+
+## 💻 Tecnologias (Proposta Inicial)
+
+### Frontend
+
+- **React.js:** Biblioteca principal para a construção da interface de usuário.
+- **React Router DOM:** Para gerenciamento de rotas e navegação.
+- **Context API / Redux:** Para gerenciamento de estado global da aplicação.
+- **Axios:** Para realizar requisições HTTP ao backend.
+- **Recharts / D3.js:** Para a criação de gráficos e visualizações de dados.
+- **Styled-Components / Tailwind CSS:** Para estilização moderna e responsiva.
+
+### Backend
+
+- **Node.js com Express.js:** Para a construção da API RESTful.
+
+### Banco de Dados
+
+- **PostgreSQL / MongoDB:** Para persistência dos dados dos usuários, metas e finanças.
+
+### Ferramentas de Desenvolvimento
+
+- **Vite / Create React App:** Para inicialização e build do projeto React.
+- **Git & GitLab / GitHub:** Para controle de versão.
+
+## 🚀 Instruções de Execução (Modelo)
+
+Como o projeto está em fase inicial, as instruções abaixo servem como um guia padrão para um ambiente de desenvolvimento full-stack.
 
 ### Pré-requisitos
-- Node.js (versão 16.0 ou superior)
-- npm ou yarn (gerenciador de pacotes)
-- Navegador web moderno
-- Conexão com internet (para acessar a PokéAPI)
+
+- Node.js (versão 18.0 ou superior)
+- npm ou yarn
+- Git
 
 ### Instalação
 
-1. Clone o repositório:
+1. **Clone o repositório:**
+
 ```bash
-git clone https://gitlab.com/alunos-dfe/grupo-3-enciclopedia-pokemon.git
-cd grupo-3-enciclopedia-pokemon
+git clone [URL_DO_SEU_REPOSITORIO_GIT]
+cd nexo
 ```
 
-2. Instale as dependências:
+2. **Instale as dependências (backend e frontend):**
+
 ```bash
+# Na pasta raiz (ou na pasta /server)
 npm install
-npm install axios
-npm install react-router-dom
-npm install react-spinners
-npm install react-icons
-npm install --save @emailjs/browser
-npm install react-scripts@latest
-npm install node
+
+# Navegue até a pasta do cliente (/client)
+cd client
+npm install
 ```
 
 ### Execução
 
-Para executar o projeto em modo de desenvolvimento:
-
-```bash
-npm start
-```
-
-O aplicativo estará disponível em: `http://localhost:3000`
-
-Para fazer o build de produção:
+1. **Execute o servidor backend (na pasta /server):**
 
 ```bash
 npm run dev
 ```
 
+O servidor estará disponível em: `http://localhost:5000` (ou outra porta definida).
 
+2. **Execute a aplicação frontend (na pasta /client):**
 
-## Integrantes do Grupo
+```bash
+npm start
+```
 
-- **Marco Antônio Clemente Ribeiro Guedes** - Matrícula: 0900065079 - Email: marcoguedes709@gmail.com
+O aplicativo estará disponível em: `http://localhost:3000`.
 
-## Exemplos de Saída (JSONs de Referência)
+## 🧠 Estrutura de Dados (Exemplos Conceituais)
 
-### Exemplo 1: Dados Completos de um Pokémon
+Abaixo estão exemplos de como os dados principais do NeXo poderão ser estruturados em formato JSON.
+
+### Exemplo 1: Dados de uma Meta de Usuário
 
 ```json
 {
-  "pokemon": {
-    "id": 25,
-    "name": "pikachu",
-    "height": 4,
-    "weight": 60,
-    "base_experience": 112,
-    "types": [
-      {
-        "slot": 1,
-        "type": {
-          "name": "electric",
-          "url": "https://pokeapi.co/api/v2/type/13/"
-        }
-      }
+  "meta": {
+    "id": "meta-001",
+    "userId": "user-123",
+    "titulo": "Aprender a programar em Python",
+    "descricao": "Concluir um curso online e desenvolver um projeto pessoal para o portfólio.",
+    "dataCriacao": "2025-10-28T10:00:00Z",
+    "prazoFinal": "2026-04-28T23:59:59Z",
+    "status": "Em Andamento",
+    "progresso": 45,
+    "tags": ["educação", "carreira", "tecnologia"]
+  }
+}
+```
+
+### Exemplo 2: Dados de um Gasto Mensal
+
+```json
+{
+  "gasto": {
+    "id": "gasto-789",
+    "userId": "user-123",
+    "descricao": "Supermercado - Compra do mês",
+    "valor": 450.75,
+    "categoria": "Alimentação",
+    "data": "2025-11-05T15:30:00Z",
+    "tipo": "essencial"
+  }
+}
+```
+
+### Exemplo 3: Resposta de um Dashboard Financeiro (Agregado)
+
+```json
+{
+  "dashboard": {
+    "userId": "user-123",
+    "mesReferencia": "Novembro/2025",
+    "totalReceitas": 3500.00,
+    "totalGastos": 2150.50,
+    "saldoMes": 1349.50,
+    "gastosPorCategoria": [
+      { "categoria": "Moradia", "total": 1200.00 },
+      { "categoria": "Alimentação", "total": 650.50 },
+      { "categoria": "Transporte", "total": 150.00 },
+      { "categoria": "Lazer", "total": 150.00 }
     ],
-    "stats": [
-      {
-        "base_stat": 35,
-        "effort": 0,
-        "stat": {
-          "name": "hp"
-        }
-      },
-      {
-        "base_stat": 55,
-        "effort": 0,
-        "stat": {
-          "name": "attack"
-        }
-      },
-      {
-        "base_stat": 90,
-        "effort": 2,
-        "stat": {
-          "name": "speed"
-        }
-      }
-    ],
-    "abilities": [
-      {
-        "ability": {
-          "name": "static",
-          "url": "https://pokeapi.co/api/v2/ability/9/"
-        },
-        "is_hidden": false,
-        "slot": 1
-      }
-    ],
-    "sprites": {
-      "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"
-    }
-  },
-  "species": {
-    "name": "pikachu",
-    "color": {
-      "name": "yellow"
-    },
-    "habitat": {
-      "name": "forest"
-    },
-    "evolution_chain": {
-      "url": "https://pokeapi.co/api/v2/evolution-chain/10/"
-    }
-  },
-  "weaknesses": ["ground"],
-  "advantages": ["water", "flying"],
-  "evolutions": ["pichu", "pikachu", "raichu"],
-  "abilityEffects": {
-    "Static": "Contact with the Pokémon may cause paralysis."
-  },
-  "moves": [
-    {
-      "nome": "thunder-shock",
-      "tipo": "electric",
-      "power": 40,
-      "accuracy": 100,
-      "pp": 30,
-      "descricao": "A jolt of electricity crashes down on the target to inflict damage."
-    }
-  ]
+    "dicaDoMes": "Você gastou 10% a mais com 'Lazer' este mês. Considere buscar opções de entretenimento gratuitas para otimizar seu orçamento."
+  }
 }
 ```
 
-### Exemplo 2: Análise de Batalha entre Pokémon
+## 🗺️ Próximos Passos (Roadmap)
 
-```json
-{
-  "statsComparison": "Charizard tem stats superiores (534 vs 320)",
-  "typeAdvantage": "Charizard tem vantagem de tipo",
-  "typeDetails": [
-    {
-      "attacker": "charizard",
-      "attackerType": "fire",
-      "defender": "venusaur",
-      "multiplier": 2,
-      "description": "Super efetivo (2x)"
-    },
-    {
-      "attacker": "charizard",
-      "attackerType": "flying",
-      "defender": "venusaur",
-      "multiplier": 2,
-      "description": "Super efetivo (2x)"
-    },
-    {
-      "attacker": "venusaur",
-      "attackerType": "grass",
-      "defender": "charizard",
-      "multiplier": 0.5,
-      "description": "Pouco efetivo (0,5x)"
-    }
-  ],
-  "recommendation": "🏆 **Charizard VENCERIA** com grande vantagem! (65 vs 10 pontos)"
-}
-```
+### Fase 1 - Backend e Base de Dados
 
-### Exemplo 3: Lista de Itens/Berries
+- Modelagem do banco de dados (Usuários, Metas, Gastos).
+- Desenvolvimento da API RESTful com endpoints para CRUD de metas e gastos.
 
-```json
-{
-  "status": "success",
-  "data": [
-    {
-      "id": 1,
-      "name": "master-ball",
-      "cost": 0,
-      "category": {
-        "name": "pokeballs"
-      },
-      "effect": "Catches any wild Pokémon without fail.",
-      "sprites": {
-        "default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/master-ball.png"
-      },
-      "type": "item"
-    },
-    {
-      "id": 1,
-      "name": "cheri",
-      "firmness": {
-        "name": "soft"
-      },
-      "flavors": [
-        {
-          "flavor": {
-            "name": "spicy"
-          },
-          "potency": 10
-        }
-      ],
-      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/cheri-berry.png",
-      "cost": 20,
-      "effect": "Cures paralysis.",
-      "type": "berry"
-    }
-  ],
-  "total": 250,
-  "timestamp": "2024-06-23T10:30:00Z"
-}
-```
+### Fase 2 - Frontend (Funcionalidades Essenciais)
 
-### Exemplo 4: Resposta de Autenticação
+- Implementação do sistema de autenticação de usuários (Cadastro e Login).
+- Criação das telas para listar, criar, editar e excluir metas.
+- Desenvolvimento da interface para registro de gastos.
 
-```json
-{
-  "status": "success",
-  "message": "Login realizado com sucesso",
-  "data": {
-    "user": {
-      "email": "treinador@pokemon.com",
-      "nome": "Ash Ketchum"
-    },
-    "isAuthenticated": true,
-    "loginTime": "2024-06-23T10:30:00Z"
-  },
-  "redirect": "/dashboard"
-}
-```
+### Fase 3 - Dashboards e Visualização
 
-### Exemplo 5: Resposta de Erro da API
+- Criação do dashboard de metas com barras de progresso.
+- Desenvolvimento do dashboard financeiro com gráficos de gastos por categoria.
 
-```json
-{
-  "status": "error",
-  "message": "Pokémon não encontrado",
-  "error_code": "POKEMON_NOT_FOUND",
-  "details": {
-    "searchTerm": "pokemonInexistente",
-    "suggestion": "Verifique a ortografia ou tente outro nome"
-  },
-  "timestamp": "2024-06-23T10:30:00Z"
-}
-```
+### Fase 4 - Lógica e Inteligência
 
-## Funcionalidades
+- Implementação do sistema de dicas financeiras com base nos gastos.
+- Criação de notificações sobre prazos de metas.
 
-### 🔍 Consulta de Pokémon
-- Busca detalhada por nome ou ID
-- Informações completas: stats, tipos, habilidades, movimentos
-- Dados da espécie e cadeia evolutiva
-- Análise de fraquezas e vantagens de tipo
+## 👤 Autor
 
-### ⚔️ Sistema de Batalhas
-- Comparação de stats entre dois Pokémon
-- Análise de efetividade de tipos
-- Algoritmo de recomendação de batalha
-- Sistema de pontuação baseado em múltiplos fatores
+**[Seu Nome Completo]**  
+Email: [seu.email@exemplo.com]
 
-### 🎒 Catálogo de Itens
-- Lista completa de itens da PokéAPI
-- Categorização por tipo (Pokéballs, Medicamentos, Berries, etc.)
-- Informações de custo e efeitos
-- Busca e filtros por categoria
+---
 
-### 🍇 Gerenciamento de Berries
-- Catálogo completo de berries
-- Informações de sabor, firmeza e efeitos
-- Integração com dados de itens
+## 📄 Licença
 
-### 🔐 Sistema de Autenticação
-- Login e cadastro de treinadores
-- Validação de formulários
-- Persistência de sessão via LocalStorage
-- Conta de teste disponível
+Este projeto está sob a licença [escolha uma licença - ex: MIT, GPL, etc.].
+
+## 🤝 Contribuições
+
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e pull requests.

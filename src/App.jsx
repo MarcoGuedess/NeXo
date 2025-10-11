@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Menu from "./components/Menu";
+import Home from "./pages/Home";
+import './index.js'
 
 
 
@@ -8,7 +10,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         {/* Rota pública - Login */}
-        <Route path="/" element={<Menu />} />
+        <Route path="/" element={<Menu> <Home/></Menu>} />
 
         {/* Rota protegida - Itens */}
         </Routes>

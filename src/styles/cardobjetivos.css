@@ -1,0 +1,53 @@
+.objetivos-container {
+  /* Centraliza o container do card na tela, se necessário */
+  display: flex;
+  justify-content: flex-start; /* Alinha o card à esquerda */
+  padding: 50px; /* Espaçamento geral */
+}
+
+.card-objetivo {
+  width: 600px; /* Largura do quadrado */
+  height: 350px; /* Altura do quadrado */
+  background-color: rgba(
+    126,
+    140,
+    84,
+    0.5
+  ); /* Cor de fundo com 50% de transparência */
+  border: 2px solid #5a633d; /* Borda sólida com uma cor mais escura */
+  border-radius: 15px; /* Bordas arredondadas para um visual mais suave */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para realçar o card */
+  padding: 20px; /* Espaçamento interno para o texto não colar nas bordas */
+  color: white; /* Cor do texto */
+  font-size: 16px;
+  margin-left: 10%; /* Empurra o card um pouco para o centro */
+  overflow: auto; /* Adiciona barra de rolagem se o texto for muito grande */
+}
+
+.card-button {
+  border-radius: 15px;
+  background-color: rgba(155, 201, 19, 0.5);
+}
+
+.input-titulo {
+  width: 50%;
+  height: 40px;
+  font-size: 20px;
+  padding: 8px;
+  margin-top: 30px;
+  border-radius: 10px;
+  background-color: rgba(216, 192, 180);
+}
+.input-texto {
+  width: 100%;
+  min-height: 120px;     /* altura inicial */
+  max-height: 60vh;      /* limite máximo para não cobrir tudo */
+  resize: vertical;      /* permite redimensionar só verticalmente */
+  overflow: auto;
+  text-align: left;       /* ou center, conforme desejado */
+  padding: 8px;
+  margin-top: 30px;
+  border-radius: 10px;
+  background-color: rgba(216, 192, 180);
+  
+}

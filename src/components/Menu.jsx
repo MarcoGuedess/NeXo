@@ -2,8 +2,6 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import '../styles/menu.css'
-import '../App.css'
 import NXLogo from '../assets/nxlogo.png'
 
 function Menu({children}) {
@@ -17,16 +15,9 @@ function Menu({children}) {
           <Nav>
             <Nav.Link href="#home" id='TextoNav'>Home</Nav.Link>
             <Nav.Link href="#link" id='TextoNav'>Anotações</Nav.Link>
-            <NavDropdown title="Dropdown" id='TextoNav'>
+            <NavDropdown title="Financeiro" id='TextoNav'>
               <NavDropdown.Item href="#action/3.1" id='TextoNav'>Gastos e Objetivos</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2" id='TextoNav'>
-                Another action
-              </NavDropdown.Item>
               <NavDropdown.Item href="#action/3.3" id='TextoNav'>Metas</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4" id='TextoNav'>  
-                Separated link
-              </NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
