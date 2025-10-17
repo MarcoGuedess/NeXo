@@ -20,7 +20,7 @@ function CardObjetivos({ id, titulo = '', texto = '', state = null }) {
           aria-pressed={status === 'ok'}
           onClick={toggleOk}
         >
-          OK
+          ✓
         </button>
         <button
           type="button"
@@ -28,7 +28,7 @@ function CardObjetivos({ id, titulo = '', texto = '', state = null }) {
           aria-pressed={status === 'atrasado'}
           onClick={toggleAtrasado}
         >
-          ATRASADO
+          X
         </button>
       </div>
     </div>
