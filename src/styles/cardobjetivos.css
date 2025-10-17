@@ -1,27 +1,36 @@
 .objetivos-container {
-  /* Centraliza o container do card na tela, se necessário */
   display: flex;
-  justify-content: flex-start; /* Alinha o card à esquerda */
-  padding: 50px; /* Espaçamento geral */
+  justify-content: flex-start;
+  padding: 50px;
 }
 
 .card-objetivo {
-  width: 600px; /* Largura do quadrado */
-  height: 350px; /* Altura do quadrado */
-  background-color: rgba(
-    126,
-    140,
-    84,
-    0.5
-  ); /* Cor de fundo com 50% de transparência */
-  border: 2px solid #5a633d; /* Borda sólida com uma cor mais escura */
-  border-radius: 15px; /* Bordas arredondadas para um visual mais suave */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para realçar o card */
-  padding: 20px; /* Espaçamento interno para o texto não colar nas bordas */
-  color: white; /* Cor do texto */
+  width: 600px;
+  height: 350px;
+  /* cor padrão quando nenhum status está ativo */
+  background-color: rgba(126, 140, 84, 0.5);
+  border: 2px solid #5a633d;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  color: white;
   font-size: 16px;
-  margin-left: 10%; /* Empurra o card um pouco para o centro */
-  overflow: auto; /* Adiciona barra de rolagem se o texto for muito grande */
+  margin-left: 10%;
+  overflow: auto;
+  /* adiciona transição suave na mudança de cor */
+  transition: background-color 0.3s ease;
+}
+
+/* Quando status é 'ok', muda a cor do card para verde */
+.card-objetivo[data-status="ok"] {
+  background-color: rgba(76, 175, 80, 0.3);
+  border-color: #4caf50;
+}
+
+/* Quando status é 'atrasado', muda a cor do card para vermelho */
+.card-objetivo[data-status="atrasado"] {
+  background-color: rgba(255, 152, 0, 0.3);
+  border-color: #ff9800;
 }
 
 .card-button {
@@ -50,4 +59,32 @@
   border-radius: 10px;
   background-color: rgba(216, 192, 180);
   
+}
+
+.button-ok {
+  background: #4caf50;
+  color: white;
+}
+
+.button-ok.active {
+  background-color: #45a049;
+  box-shadow: 0 0 5px #4caf50;
+}
+
+.button-atrasado {
+  background: #ff9800;
+  color: white;
+}
+
+.button-atrasado.active {
+  background-color: #f57c00;
+  box-shadow: 0 0 5px #ff9800;
+}
+
+button {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  margin: 5px;
 }

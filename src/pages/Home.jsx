@@ -5,7 +5,7 @@ import CardAdicionar from '../components/cardadicionar';
 
 function Home() {
   const { objetivosCard, addCard } = useObjetivos([
-    { id: 1, texto: 'Objetivo inicial' }
+    { id: 1, texto: 'Marco Bonitão' }
   ]);
 
   return (
@@ -20,8 +20,9 @@ function Home() {
       ))}
 
     <CardAdicionar onAdd={addCard} />      
+
     </>
   );
 }
 
-export default Home;
+export default Home;  

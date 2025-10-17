@@ -1,6 +1,5 @@
-import React, { Children } from 'react';
 import { useState } from 'react';
-import CardObjetivos from '../components/cardobjetivos';
+
 
 export function useObjetivos(initial = []) {
   const [objetivosCard, setObjetivosCard] = useState(initial);

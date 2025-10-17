@@ -65,7 +65,7 @@ Como o projeto está em fase inicial, as instruções abaixo servem como um guia
 1. **Clone o repositório:**
 
 ```bash
-git clone [URL_DO_SEU_REPOSITORIO_GIT]
+git clone 
 cd nexo
 ```
 
@@ -182,14 +182,10 @@ Abaixo estão exemplos de como os dados principais do NeXo poderão ser estrutur
 
 ## 👤 Autor
 
-**[Seu Nome Completo]**  
-Email: [seu.email@exemplo.com]
+**Marco Antônio Guedes**  
+Email: [marcoguedes709@gmail.com]
 
 ---
-
-## 📄 Licença
-
-Este projeto está sob a licença [escolha uma licença - ex: MIT, GPL, etc.].
 
 ## 🤝 Contribuições
 
