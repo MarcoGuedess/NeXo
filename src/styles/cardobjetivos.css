@@ -116,7 +116,7 @@
 
 /* Ajuste para modo de edição */
 .button-edit.editing {
-  position: relative;
+  position: center;
   right: auto;
   transform: none;
 }
