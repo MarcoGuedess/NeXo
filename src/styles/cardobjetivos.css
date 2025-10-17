@@ -6,7 +6,7 @@
 
 .card-objetivo {
   width: 600px;
-  height: 375px;
+  height: 400px;
   /* cor padrão quando nenhum status está ativo */
   background-color: rgba(126, 140, 84, 0.5);
   border: 2px solid #5a633d;
@@ -49,16 +49,15 @@
 }
 .input-texto {
   width: 100%;
-  min-height: 120px;     /* altura inicial */
-  max-height: 60vh;      /* limite máximo para não cobrir tudo */
-  resize: vertical;      /* permite redimensionar só verticalmente */
+  min-height: 120px; /* altura inicial */
+  max-height: 60vh; /* limite máximo para não cobrir tudo */
+  resize: vertical; /* permite redimensionar só verticalmente */
   overflow: auto;
-  text-align: left;       /* ou center, conforme desejado */
+  text-align: left; /* ou center, conforme desejado */
   padding: 8px;
   margin-top: 30px;
   border-radius: 10px;
   background-color: rgba(216, 192, 180);
-  
 }
 
 .button-ok {
@@ -67,8 +66,9 @@
   border-radius: 10px;
   height: 70px;
   width: 70px;
-  margin-left: 175px;
-  margin-top: 15px;
+  margin: 0; /* Remove margens fixas */
+  margin-top: 10px; /* Você pode manter isso se for um ajuste vertical intencional */
+  flex-shrink: 0;
 }
 
 .button-ok.active {
@@ -82,7 +82,9 @@
   border-radius: 10px;
   height: 70px;
   width: 70px;
-  margin-left: 50px;
+  margin: 0; /* Remove margens fixas */
+  margin-top: 10px; /* Você pode manter isso se for um ajuste vertical intencional */
+  flex-shrink: 0;
 }
 
 .button-atrasado.active {
@@ -90,10 +92,68 @@
   box-shadow: 0 0 5px #c70505;
 }
 
-button {
-  padding: 8px 12px;
-  border-radius: 8px;
+.button-edit {
+  background: #7986cb;
+  color: white;
+  border-radius: 10px;
+  height: 60px;
+  width: 60px;
+  font-size: 20px;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
+}
+
+/* Remove todas as margins e paddings conflitantes */
+.buttons-container button {
   border: none;
   cursor: pointer;
-  margin: 5px;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+/* Ajuste para modo de edição */
+.button-edit.editing {
+  position: relative;
+  right: auto;
+  transform: none;
+}
+
+/* Esconde os botões de status durante edição */
+.editing-mode .button-ok,
+.editing-mode .button-atrasado {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Estilo quando está em modo de edição */
+.button-edit.editing {
+  background: #3949ab;
+  right: 50%;
+  transform: translateX(50%);
+}
+
+/* Background mais suave durante edição */
+.card-objetivo.editing-mode {
+  background-color: rgba(126, 140, 84, 0.3);
+}
+
+/* Inputs mais destacados durante edição */
+.editing-mode .input-titulo:enabled,
+.editing-mode .input-texto:enabled {
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  width: 100%;
+  margin-top: 30px;
+  padding: 0 60px;
+  position: relative;
 }
