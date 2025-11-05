@@ -1,69 +1,37 @@
+// src/components/cardobjetivos.jsx
 import React from 'react';
-import '../styles/cardobjetivos.css';
-import { useButton } from '../hooks/useButton';
-import { useEdit } from '../hooks/useEdit';
 
-function CardObjetivos({ id, titulo = '', texto = '', state = null }) {
-  const { status, toggleOk, toggleAtrasado } = useButton(state);
-  const {
-    isEditing,
-    titulo: currentTitulo,
-    texto: currentTexto,
-    startEditing,
-    saveChanges,
-    updateTitulo,
-    updateTexto
-  } = useEdit(titulo, texto);
+// Importar os novos componentes de card (que vamos criar)
+import CardGenerico from './cardsespecificos/cardgenerico.jsx';
+import CardPerdaPeso from './cardsespecificos/cardppeso.jsx'; // Nome do arquivo é 'cardppeso'
+import CardFrequencia from './cardsespecificos/cardfrequencia.jsx';
 
-  return (
-    <div className="objetivos-container">
-      <div
-        className={`card-objetivo ${isEditing ? 'editing-mode' : ''}`}
-        id={id}
-        data-status={status}
-      >
-        <input
-          className="input-titulo"
-          value={currentTitulo}
-          onChange={(e) => updateTitulo(e.target.value)}
-          disabled={!isEditing}
-        />
-        <textarea
-          className="input-texto"
-          value={currentTexto}
-          onChange={(e) => updateTexto(e.target.value)}
-          disabled={!isEditing}
-        />
 
-        <div className="buttons-container">
-          <button
-            type="button"
-            className={`button-edit ${isEditing ? 'editing' : ''}`}
-            onClick={isEditing ? saveChanges : startEditing}
-          >
-            {isEditing ? '💾' : '✎'}
-          </button>
+function CardObjetivos({ objetivo, onDelete, onUpdate }) {
+  
+  // Passa todas as props para o componente filho
+  const props = { objetivo, onDelete, onUpdate };
 
-          <button
-            type="button"
-            className={`button-ok ${status === 'ok' ? 'active' : ''}`}
-            aria-pressed={status === 'ok'}
-            onClick={toggleOk}
-          >
-            ✓
-          </button>
-          <button
-            type="button"
-            className={`button-atrasado ${status === 'atrasado' ? 'active' : ''}`}
-            aria-pressed={status === 'atrasado'}
-            onClick={toggleAtrasado}
-          >
-            X
-          </button>
-        </div>
-      </div>
-    </div>
-  );
+  // Decide qual componente renderizar com base no tipo
+  switch (objetivo.type) {
+    case 'PERDA_PESO':
+      return <CardPerdaPeso {...props} />;
+    
+    // Por enquanto, vamos agrupar os 4 tipos quantitativos
+    case 'PERDA_GORDURA':
+    case 'GANHO_MASSA':
+    case 'PROGRESSAO_CARGA':
+      // Você pode criar componentes separados ou um
+      // componente reutilizável 'CardQuantitativo'
+      return <CardPerdaPeso {...props} />; // Reutilizando o de Perda de Peso
+
+    case 'FREQUENCIA':
+      return <CardFrequencia {...props} />;
+    
+    default:
+      // Este é o seu card antigo
+      return <CardGenerico {...props} />;
+  }
 }
 
 export default CardObjetivos;

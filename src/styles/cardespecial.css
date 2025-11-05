@@ -1,0 +1,159 @@
+/* src/styles/CardEspecial.css */
+
+/* --- Estilos Comuns --- */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-header h3 {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.expand-button {
+  background: none;
+  border: 1px solid #6366f1;
+  color: #6366f1;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.expanded-content {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #4a4a6a;
+}
+
+/* --- Card Perda de Peso --- */
+.progresso-info {
+  margin: 15px 0;
+}
+.progress-bar-container {
+  width: 100%;
+  background-color: #3e3e5a;
+  border-radius: 5px;
+  height: 10px;
+  overflow: hidden;
+}
+.progress-bar {
+  height: 100%;
+  background-color: #34d399; /* Verde sucesso */
+  border-radius: 5px;
+  transition: width 0.3s ease;
+}
+
+.meta-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+.meta-fields label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.meta-fields input {
+  width: 80px;
+  background-color: #1e1e2d;
+  color: white;
+  border: 1px solid #4a4a6a;
+  border-radius: 4px;
+  padding: 5px;
+  text-align: right;
+}
+
+.add-progresso {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+}
+.add-progresso input {
+  flex-grow: 1;
+  background-color: #1e1e2d;
+  color: white;
+  border: 1px solid #4a4a6a;
+  border-radius: 4px;
+  padding: 8px;
+}
+.add-progresso button {
+  background-color: #6366f1;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0 15px;
+  cursor: pointer;
+}
+
+.historico h4 {
+  margin-bottom: 5px;
+}
+.historico ul {
+  list-style: none;
+  padding-left: 0;
+  max-height: 150px;
+  overflow-y: auto;
+  font-size: 14px;
+  color: #ccc;
+}
+.historico li {
+  padding: 4px;
+  border-bottom: 1px solid #3e3e5a;
+}
+
+/* --- Card Frequência --- */
+.frequencia-input {
+  width: 50px;
+  background-color: #1e1e2d;
+  color: white;
+  border: 1px solid #4a4a6a;
+  border-radius: 4px;
+  padding: 5px;
+  text-align: center;
+  margin: 0 5px;
+}
+
+/* Estilo do Calendário */
+.calendar-container .react-calendar {
+  width: 100%;
+  background: #1e1e2d;
+  border: 1px solid #4a4a6a;
+  color: white;
+  border-radius: 8px;
+}
+.react-calendar__navigation button {
+  color: #6366f1;
+  font-weight: bold;
+}
+.react-calendar__month-view__weekdays__weekday {
+  color: #a5a5a5;
+  text-decoration: none;
+}
+.react-calendar__tile {
+  color: white;
+}
+.react-calendar__tile:disabled {
+  background-color: #1e1e2d;
+  color: #555;
+}
+.react-calendar__tile--now {
+  background: #3e3e5a;
+}
+.react-calendar__tile--active,
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+  background: #6366f1;
+}
+/* Nosso estilo customizado para dia marcado */
+.dia-marcado {
+  background-color: #34d399 !important; /* Verde */
+  border-radius: 50%;
+}
