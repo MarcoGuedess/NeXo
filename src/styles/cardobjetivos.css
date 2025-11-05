@@ -1,159 +1,38 @@
-.objetivos-container {
-  display: flex;
-  justify-content: flex-start;
-  padding: 50px;
-}
+/* src/styles/cardobjetivos.css */
 
 .card-objetivo {
-  width: 600px;
-  height: 400px;
-  /* cor padrão quando nenhum status está ativo */
-  background-color: rgba(126, 140, 84, 0.5);
-  border: 2px solid #5a633d;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  padding: 20px;
+    /* * =============================================================
+     * CORREÇÃO DA COR DE FUNDO (Verde Musgo)
+     * =============================================================
+    */
+    background-color: #1A302D; /* Verde musgo escuro (dos mockups) */
+    border: 1px solid #2A524C; /* Borda em tom de verde */
+    
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    min-height: 200px; 
+    
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilos para o conteúdo do card */
+.card-objetivo h3 {
+    margin-top: 0;
+}
+
+/* Ações (botão excluir) */
+.card-actions {
+    margin-top: auto; 
+    padding-top: 15px;
+}
+
+.delete-button {
+  background-color: #dc2626; /* Vermelho (universal) */
   color: white;
-  font-size: 16px;
-  margin-left: 10%;
-  overflow: auto;
-  /* adiciona transição suave na mudança de cor */
-  transition: background-color 0.3s ease;
-}
-
-/* Quando status é 'ok', muda a cor do card para verde */
-.card-objetivo[data-status="ok"] {
-  background-color: rgba(76, 175, 80, 0.3);
-  border-color: #4caf50;
-}
-
-/* Quando status é 'atrasado', muda a cor do card para vermelho */
-.card-objetivo[data-status="atrasado"] {
-  background-color: rgba(255, 152, 0, 0.3);
-  border-color: #c70505;
-}
-
-.card-button {
-  border-radius: 15px;
-  background-color: rgba(155, 201, 19, 0.5);
-}
-
-.input-titulo {
-  width: 50%;
-  height: 40px;
-  font-size: 20px;
-  padding: 8px;
-  margin-top: 30px;
-  border-radius: 10px;
-  background-color: rgba(216, 192, 180);
-}
-.input-texto {
-  width: 100%;
-  min-height: 120px; /* altura inicial */
-  max-height: 60vh; /* limite máximo para não cobrir tudo */
-  resize: vertical; /* permite redimensionar só verticalmente */
-  overflow: auto;
-  text-align: left; /* ou center, conforme desejado */
-  padding: 8px;
-  margin-top: 30px;
-  border-radius: 10px;
-  background-color: rgba(216, 192, 180);
-}
-
-.button-ok {
-  background: #4caf50;
-  color: white;
-  border-radius: 10px;
-  height: 70px;
-  width: 70px;
-  margin: 0; /* Remove margens fixas */
-  margin-top: 10px; /* Você pode manter isso se for um ajuste vertical intencional */
-  flex-shrink: 0;
-}
-
-.button-ok.active {
-  background-color: #45a049;
-  box-shadow: 0 0 5px #4caf50;
-}
-
-.button-atrasado {
-  background: #a11a1a;
-  color: white;
-  border-radius: 10px;
-  height: 70px;
-  width: 70px;
-  margin: 0; /* Remove margens fixas */
-  margin-top: 10px; /* Você pode manter isso se for um ajuste vertical intencional */
-  flex-shrink: 0;
-}
-
-.button-atrasado.active {
-  background-color: #f50000;
-  box-shadow: 0 0 5px #c70505;
-}
-
-.button-edit {
-  background: #7986cb;
-  color: white;
-  border-radius: 10px;
-  height: 60px;
-  width: 60px;
-  font-size: 20px;
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  margin: 0;
-}
-
-/* Remove todas as margins e paddings conflitantes */
-.buttons-container button {
   border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
   cursor: pointer;
-  padding: 0;
-  transition: all 0.3s ease;
-}
-
-/* Ajuste para modo de edição */
-.button-edit.editing {
-  position: center;
-  right: auto;
-  transform: none;
-}
-
-/* Esconde os botões de status durante edição */
-.editing-mode .button-ok,
-.editing-mode .button-atrasado {
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* Estilo quando está em modo de edição */
-.button-edit.editing {
-  background: #3949ab;
-  right: 50%;
-  transform: translateX(50%);
-}
-
-/* Background mais suave durante edição */
-.card-objetivo.editing-mode {
-  background-color: rgba(126, 140, 84, 0.3);
-}
-
-/* Inputs mais destacados durante edição */
-.editing-mode .input-titulo:enabled,
-.editing-mode .input-texto:enabled {
-  background-color: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.buttons-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-  width: 100%;
-  margin-top: 30px;
-  padding: 0 60px;
-  position: relative;
 }

@@ -1,12 +1,38 @@
 #root{
   background-color: #c1caa5 !important;  
 }
+
+/* src/App.css */
+
 body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Oswald, sans-serif;
-  font-size: 16px;
-  background-color: #c1caa5 !important;  
-;
+    background-color: #1a1a2e;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    /* 1. ESPAÇAMENTO:
+     * "Mais para o canto esquerdo":
+     * Diminuí o padding de 220px para 210px.
+     * (Assumindo que seu menu tem 200px, isso dá 10px de vão. Ajuste se precisar).
+    */
+    padding: 20px 20px 20px 210px;
+    
+    display: grid;
+    
+    /* 2. LARGURA:
+     * "Menos largo":
+     * Diminuí a largura máxima de 800px para 600px.
+    */
+    grid-template-columns: minmax(auto, 600px);
+    
+    /* 3. ALINHAMENTO:
+     * Alinha a coluna única à esquerda (em vez de centralizar).
+    */
+    justify-content: left;
+    
+    gap: 20px;
+    align-items: start;
 }

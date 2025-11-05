@@ -1,17 +1,33 @@
-// src/components/cards-especificos/CardPerdaPeso.jsx
+// src/components/cardsespecificos/cardppeso.jsx
+
 import React, { useState } from 'react';
-import './../../styles/cardobjetivos.css'; // Reutilize seu CSS
-import './../../styles/CardEspecial.css'; // CSS novo para partes especiais
+
+/*
+ *
+ * CORREÇÃO DE ESTILO:
+ * Importa os dois arquivos CSS com o caminho relativo correto (../../)
+ *
+*/
+import '../../styles/cardobjetivos.css'; 
+import '../../styles/cardespecial.css';
 
 function CardPerdaPeso({ objetivo, onDelete, onUpdate }) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [novoPeso, setNovoPeso] = useState('');
+  const [novoPeso, setNovoPeso] = useState(''); // Estado para o input de novo peso
 
   // Lógica de cálculo de progresso
-  const progressoAtual = (objetivo.valorInicial - objetivo.progresso[objetivo.progresso.length - 1]?.valor) || 0;
-  const metaTotal = objetivo.valorInicial - objetivo.valorAlvo;
-  const progressoPerc = metaTotal > 0 ? Math.round((progressoAtual / metaTotal) * 100) : 0;
+  // Pega o último peso adicionado, ou o inicial se não houver progresso
+  const pesoAtual = objetivo.progresso[objetivo.progresso.length - 1]?.valor || objetivo.valorInicial;
+  
+  // Quanto o usuário já perdeu
+  const progressoTotalPerdido = objetivo.valorInicial > 0 ? (objetivo.valorInicial - pesoAtual) : 0;
+  // Meta total a perder
+  const metaTotal = objetivo.valorInicial > 0 ? (objetivo.valorInicial - objetivo.valorAlvo) : 0;
+  
+  // Calcula a porcentagem
+  const progressoPerc = metaTotal > 0 ? Math.max(0, Math.min(100, Math.round((progressoTotalPerdido / metaTotal) * 100))) : 0;
 
+  // Função para adicionar um novo registro de peso ao histórico
   const handleAddProgresso = () => {
     if (novoPeso === '' || isNaN(parseFloat(novoPeso))) return;
 
@@ -20,19 +36,35 @@ function CardPerdaPeso({ objetivo, onDelete, onUpdate }) {
       valor: parseFloat(novoPeso),
     };
 
-    // Atualiza o objetivo no hook pai
+    // Atualiza o objetivo no hook pai (Home.jsx)
     onUpdate(objetivo.id, {
       progresso: [...objetivo.progresso, novaEntrada],
     });
-    setNovoPeso('');
+    setNovoPeso(''); // Limpa o input
   };
 
-  // Salvar mudanças no título, meta inicial, meta final, etc.
+  // Função para salvar mudanças em campos editáveis (título, metas)
   const handleUpdateField = (field, value) => {
     onUpdate(objetivo.id, { [field]: value });
   };
+  
+  const handleUpdateFieldNumeric = (field, value) => {
+     // Garante que o valor é numérico antes de atualizar
+    const numValue = parseFloat(value);
+    if (!isNaN(numValue)) {
+      onUpdate(objetivo.id, { [field]: numValue });
+    }
+  };
+
 
   return (
+    /*
+     *
+     * CORREÇÃO DE ESTILO:
+     * A div principal precisa ter a classe "card-objetivo" (base)
+     * e a classe "card-perda-peso" (específica).
+     *
+    */
     <div className="card-objetivo card-perda-peso">
       <div className="card-header">
         <h3 
@@ -53,6 +85,9 @@ function CardPerdaPeso({ objetivo, onDelete, onUpdate }) {
         <div className="progress-bar-container">
           <div className="progress-bar" style={{ width: `${progressoPerc}%` }}></div>
         </div>
+        <span className="progresso-texto">
+          {pesoAtual} {objetivo.unidade} (Meta: {objetivo.valorAlvo} {objetivo.unidade})
+        </span>
       </div>
 
       {/* Conteúdo Expansível */}
@@ -64,7 +99,7 @@ function CardPerdaPeso({ objetivo, onDelete, onUpdate }) {
               <input 
                 type="number" 
                 value={objetivo.valorInicial} 
-                onChange={(e) => handleUpdateField('valorInicial', parseFloat(e.target.value))}
+                onChange={(e) => handleUpdateFieldNumeric('valorInicial', e.target.value)}
               /> {objetivo.unidade}
             </label>
             <label>
@@ -72,7 +107,7 @@ function CardPerdaPeso({ objetivo, onDelete, onUpdate }) {
               <input 
                 type="number" 
                 value={objetivo.valorAlvo} 
-                onChange={(e) => handleUpdateField('valorAlvo', parseFloat(e.target.value))}
+                onChange={(e) => handleUpdateFieldNumeric('valorAlvo', e.target.value)}
               /> {objetivo.unidade}
             </label>
           </div>
@@ -91,13 +126,18 @@ function CardPerdaPeso({ objetivo, onDelete, onUpdate }) {
           
           <div className="historico">
             <h4>Histórico de Peso:</h4>
-            <ul>
-              {objetivo.progresso.map((item, index) => (
-                <li key={index}>
-                  {item.data}: {item.valor} {objetivo.unidade}
-                </li>
-              )).reverse()} {/* .reverse() para mostrar o mais novo primeiro */}
-            </ul>
+            {objetivo.progresso.length > 0 ? (
+              <ul>
+                {/* .slice() cria uma cópia antes de reverter, para não alterar o estado original */}
+                {objetivo.progresso.slice().reverse().map((item, index) => (
+                  <li key={index}>
+                    {item.data}: {item.valor} {objetivo.unidade}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="historico-vazio">Nenhum registro adicionado.</p>
+            )}
           </div>
         </div>
       )}

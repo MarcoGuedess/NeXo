@@ -1,7 +1,8 @@
 // src/hooks/useObjetivos.jsx
+
 import { useState } from 'react';
 
-// Função para criar a estrutura inicial de cada tipo de card
+// A função getInitialCardData continua a mesma...
 const getInitialCardData = (type) => {
   const baseData = {
     id: Date.now(),
@@ -19,18 +20,17 @@ const getInitialCardData = (type) => {
         ...baseData,
         unidade: type === 'PROGRESSAO_CARGA' ? 'kg (carga)' : 'kg (corporal)',
         valorInicial: 0,
-        valorAlvo: 10, // Exemplo
-        progresso: [], // Array de { data: 'dd/mm/aaaa', valor: X }
-        subMetas: [], // Array de { id: 1, valor: 2, concluida: false }
+        valorAlvo: 10,
+        progresso: [], 
+        subMetas: [], 
       };
     case 'FREQUENCIA':
       return {
         ...baseData,
-        frequenciaSemanal: 3, // Meta de 3x por semana
-        diasMarcados: [], // Array de datas 'yyyy-mm-dd'
+        frequenciaSemanal: 3,
+        diasMarcados: [],
       };
     default:
-      // Seu card genérico antigo como fallback
       return {
         ...baseData,
         type: 'GENERICO',
@@ -43,7 +43,10 @@ const getInitialCardData = (type) => {
 export function useObjetivos() {
   const [objetivos, setObjetivos] = useState([]);
 
-  // addCard agora recebe um TIPO
+  //
+  // CORREÇÃO DA LÓGICA:
+  // Adiciona o novo card ao FINAL da lista.
+  //
   const addCard = (type) => {
     const novoCard = getInitialCardData(type);
     setObjetivos((prevObjetivos) => [...prevObjetivos, novoCard]);
@@ -55,7 +58,6 @@ export function useObjetivos() {
     );
   };
 
-  // Esta função será MUITO importante agora
   const updateCard = (id, updatedData) => {
     setObjetivos((prevObjetivos) =>
       prevObjetivos.map((objetivo) =>

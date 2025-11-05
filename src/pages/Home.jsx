@@ -1,15 +1,13 @@
 // src/pages/Home.jsx
-import React, { useState } from 'react'; // Importar useState
-import CardObjetivos from '../components/cardobjetivos';
-import CardAdicionar from '../components/cardadicionar';
-import { useObjetivos } from '../hooks/useObjetivos';
-import ModalObjetivos from '../components/modalobjetivos';
+
+import React, { useState } from 'react';
+import CardObjetivos from '../components/cardobjetivos.jsx';
+import CardAdicionar from '../components/cardadicionar.jsx';
+import ModalObjetivos from '../components/modalobjetivos.jsx';
+import { useObjetivos } from '../hooks/useObjetivos.jsx';
 
 function Home() {
-  // Pegar todas as funções do hook
   const { objetivos, addCard, deleteCard, updateCard } = useObjetivos();
-  
-  // Estado para controlar o modal
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => {
@@ -20,27 +18,35 @@ function Home() {
     setIsModalOpen(false);
   };
 
-  // Função chamada pelo modal
   const handleSelectType = (type) => {
-    addCard(type);       // Cria o card com o tipo certo
-    setIsModalOpen(false); // Fecha o modal
+    addCard(type); // Adiciona no final (graças ao hook)
+    handleCloseModal();
   };
 
   return (
     <div className="container">
-      {/* Passar a função de ABRIR o modal para o card de adicionar */}
-      <CardAdicionar onAddCard={handleOpenModal} />
+      
+      {/* Se a lista estiver VAZIA, o "Adicionar" aparece no topo. */}
+      {objetivos.length === 0 && (
+        <CardAdicionar onAddCard={handleOpenModal} />
+      )}
 
+      {/* A lista de cards de objetivo (Renderizada PRIMEIRO) */}
       {objetivos.map((objetivo) => (
         <CardObjetivos
           key={objetivo.id}
-          objetivo={objetivo} // Passa o objeto inteiro
+          objetivo={objetivo}
           onDelete={deleteCard}
-          onUpdate={updateCard} // Passa a função de update
+          onUpdate={updateCard}
         />
       ))}
 
-      {/* Renderiza o Modal (ele só aparece se isModalOpen for true) */}
+      {/* Se a lista NÃO ESTIVER VAZIA, o "Adicionar" aparece no FINAL. */}
+      {objetivos.length > 0 && (
+        <CardAdicionar onAddCard={handleOpenModal} />
+      )}
+
+      {/* O Modal */}
       <ModalObjetivos
         isOpen={isModalOpen}
         onClose={handleCloseModal}

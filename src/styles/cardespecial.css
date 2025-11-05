@@ -1,4 +1,4 @@
-/* src/styles/CardEspecial.css */
+/* src/styles/cardespecial.css */
 
 /* --- Estilos Comuns --- */
 .card-header {
@@ -14,8 +14,8 @@
 
 .expand-button {
   background: none;
-  border: 1px solid #6366f1;
-  color: #6366f1;
+  border: 1px solid #2A524C; /* Borda verde-escura */
+  color: #a5a5a5;
   border-radius: 50%;
   width: 30px;
   height: 30px;
@@ -25,11 +25,15 @@
   justify-content: center;
   align-items: center;
 }
+.expand-button:hover {
+  border-color: #34D399; /* COR VERDE */
+  color: #34D399;
+}
 
 .expanded-content {
   margin-top: 20px;
   padding-top: 15px;
-  border-top: 1px solid #4a4a6a;
+  border-top: 1px solid #2A524C; /* Borda verde-escura */
 }
 
 /* --- Card Perda de Peso --- */
@@ -38,14 +42,14 @@
 }
 .progress-bar-container {
   width: 100%;
-  background-color: #3e3e5a;
+  background-color: #122421; /* Verde super escuro */
   border-radius: 5px;
   height: 10px;
   overflow: hidden;
 }
 .progress-bar {
   height: 100%;
-  background-color: #34d399; /* Verde sucesso */
+  background-color: #34D399; /* COR VERDE */
   border-radius: 5px;
   transition: width 0.3s ease;
 }
@@ -63,9 +67,9 @@
 }
 .meta-fields input {
   width: 80px;
-  background-color: #1e1e2d;
+  background-color: #122421; /* Verde super escuro */
   color: white;
-  border: 1px solid #4a4a6a;
+  border: 1px solid #2A524C; /* Borda verde-escura */
   border-radius: 4px;
   padding: 5px;
   text-align: right;
@@ -78,15 +82,16 @@
 }
 .add-progresso input {
   flex-grow: 1;
-  background-color: #1e1e2d;
+  background-color: #122421; /* Verde super escuro */
   color: white;
-  border: 1px solid #4a4a6a;
+  border: 1px solid #2A524C; /* Borda verde-escura */
   border-radius: 4px;
   padding: 8px;
 }
 .add-progresso button {
-  background-color: #6366f1;
-  color: white;
+  background-color: #34D399; /* COR VERDE */
+  color: #122421; /* Texto escuro para contraste */
+  font-weight: bold;
   border: none;
   border-radius: 4px;
   padding: 0 15px;
@@ -106,15 +111,15 @@
 }
 .historico li {
   padding: 4px;
-  border-bottom: 1px solid #3e3e5a;
+  border-bottom: 1px solid #2A524C;
 }
 
 /* --- Card Frequência --- */
 .frequencia-input {
   width: 50px;
-  background-color: #1e1e2d;
+  background-color: #122421; /* Verde super escuro */
   color: white;
-  border: 1px solid #4a4a6a;
+  border: 1px solid #2A524C; /* Borda verde-escura */
   border-radius: 4px;
   padding: 5px;
   text-align: center;
@@ -124,13 +129,13 @@
 /* Estilo do Calendário */
 .calendar-container .react-calendar {
   width: 100%;
-  background: #1e1e2d;
-  border: 1px solid #4a4a6a;
+  background: #122421; /* Verde super escuro */
+  border: 1px solid #2A524C; /* Borda verde-escura */
   color: white;
   border-radius: 8px;
 }
 .react-calendar__navigation button {
-  color: #6366f1;
+  color: #34D399; /* COR VERDE */
   font-weight: bold;
 }
 .react-calendar__month-view__weekdays__weekday {
@@ -141,19 +146,21 @@
   color: white;
 }
 .react-calendar__tile:disabled {
-  background-color: #1e1e2d;
+  background-color: #122421;
   color: #555;
 }
 .react-calendar__tile--now {
-  background: #3e3e5a;
+  background: #2A524C;
 }
 .react-calendar__tile--active,
 .react-calendar__tile:enabled:hover,
 .react-calendar__tile:enabled:focus {
-  background: #6366f1;
+  background: #34D399; /* COR VERDE */
+  color: #122421;
 }
 /* Nosso estilo customizado para dia marcado */
 .dia-marcado {
-  background-color: #34d399 !important; /* Verde */
+  background-color: #34D399 !important; /* COR VERDE */
+  color: #122421 !important;
   border-radius: 50%;
 }
