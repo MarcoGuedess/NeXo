@@ -1,152 +1,232 @@
 // src/components/cardsespecificos/cardppeso.jsx
-
 import React, { useState } from 'react';
-
-/*
- *
- * CORREÇÃO DE ESTILO:
- * Importa os dois arquivos CSS com o caminho relativo correto (../../)
- *
-*/
-import '../../styles/cardobjetivos.css'; 
+import '../../styles/cardobjetivos.css';
 import '../../styles/cardespecial.css';
 
 function CardPerdaPeso({ objetivo, onDelete, onUpdate }) {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [novoPeso, setNovoPeso] = useState(''); // Estado para o input de novo peso
+  // Estados para as duas views (mutuamente exclusivas)
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false); // Seta de baixo (Detalhes)
+  const [isMetasViewOpen, setIsMetasViewOpen] = useState(false); // Seta lateral (Metas)
 
-  // Lógica de cálculo de progresso
-  // Pega o último peso adicionado, ou o inicial se não houver progresso
-  const pesoAtual = objetivo.progresso[objetivo.progresso.length - 1]?.valor || objetivo.valorInicial;
-  
-  // Quanto o usuário já perdeu
-  const progressoTotalPerdido = objetivo.valorInicial > 0 ? (objetivo.valorInicial - pesoAtual) : 0;
-  // Meta total a perder
-  const metaTotal = objetivo.valorInicial > 0 ? (objetivo.valorInicial - objetivo.valorAlvo) : 0;
-  
-  // Calcula a porcentagem
-  const progressoPerc = metaTotal > 0 ? Math.max(0, Math.min(100, Math.round((progressoTotalPerdido / metaTotal) * 100))) : 0;
+  const [novoPeso, setNovoPeso] = useState('');
+  const [novaObservacao, setNovaObservacao] = useState('');
 
-  // Função para adicionar um novo registro de peso ao histórico
+  // LÓGICA DE PROGESSO (Correta, 25%)
+  const pesoAtual = objetivo.progresso.length > 0 
+    ? objetivo.progresso[objetivo.progresso.length - 1].valor 
+    : objetivo.valorInicial;
+  
+  const isPerda = objetivo.valorAlvo < objetivo.valorInicial;
+  let progressoNumerador = 0;
+  let progressoDenominador = 0;
+
+  if (isPerda) {
+    progressoNumerador = Math.max(0, objetivo.valorInicial - pesoAtual);
+    progressoDenominador = Math.max(0, objetivo.valorInicial - objetivo.valorAlvo);
+  } else {
+    progressoNumerador = Math.max(0, pesoAtual - objetivo.valorInicial);
+    progressoDenominador = Math.max(0, objetivo.valorAlvo - objetivo.valorInicial);
+  }
+  
+  const progressoPerc = progressoDenominador > 0 
+    ? Math.min(100, Math.round((progressoNumerador / progressoDenominador) * 100)) 
+    : 0;
+
+  // --- LÓGICA DE ADICIONAR PROGRESSO (COM CHECK DE SUB-METAS) ---
   const handleAddProgresso = () => {
     if (novoPeso === '' || isNaN(parseFloat(novoPeso))) return;
-
+    const novoValorPeso = parseFloat(novoPeso);
     const novaEntrada = {
       data: new Date().toLocaleDateString('pt-BR'),
-      valor: parseFloat(novoPeso),
+      valor: novoValorPeso,
     };
+    
+    const novasSubMetas = objetivo.subMetas.map(meta => {
+      if (meta.concluida) return meta;
+      const isPerda = objetivo.valorAlvo < objetivo.valorInicial;
+      if ((isPerda && novoValorPeso <= meta.valor) || (!isPerda && novoValorPeso >= meta.valor)) {
+        return { ...meta, concluida: true };
+      }
+      return meta;
+    });
 
-    // Atualiza o objetivo no hook pai (Home.jsx)
     onUpdate(objetivo.id, {
       progresso: [...objetivo.progresso, novaEntrada],
+      subMetas: novasSubMetas,
     });
-    setNovoPeso(''); // Limpa o input
+    setNovoPeso('');
   };
 
-  // Função para salvar mudanças em campos editáveis (título, metas)
-  const handleUpdateField = (field, value) => {
-    onUpdate(objetivo.id, { [field]: value });
+  // --- LÓGICA PARA ADICIONAR OBSERVAÇÕES ---
+  const handleAddObservacao = () => {
+    if (novaObservacao.trim() === '') return;
+    const novaNota = {
+      data: new Date().toLocaleDateString('pt-BR'),
+      texto: novaObservacao,
+    };
+    onUpdate(objetivo.id, {
+      observacoes: [...(objetivo.observacoes || []), novaNota]
+    });
+    setNovaObservacao('');
   };
+
+  // Apenas para o TÍTULO
+  const handleUpdateTitulo = (e) => {
+    onUpdate(objetivo.id, { titulo: e.target.innerText });
+  };
+
+  // --- MANIPULADORES DE VIEW (COM EXCLUSÃO MÚTUA) ---
   
-  const handleUpdateFieldNumeric = (field, value) => {
-     // Garante que o valor é numérico antes de atualizar
-    const numValue = parseFloat(value);
-    if (!isNaN(numValue)) {
-      onUpdate(objetivo.id, { [field]: numValue });
-    }
+  // Abre/Fecha a "View de Detalhes" (de baixo)
+  const toggleDetailsView = () => {
+    setIsDetailsOpen(!isDetailsOpen); // Alterna o estado de detalhes
+    setIsMetasViewOpen(false); // Força o fechamento da view de metas
+  };
+
+  // Abre/Fecha a "View de Metas" (lateral)
+  const toggleMetasView = () => {
+    setIsMetasViewOpen(!isMetasViewOpen); // Alterna o estado de metas
+    setIsDetailsOpen(false); // Força o fechamento da view de detalhes
   };
 
 
   return (
-    /*
-     *
-     * CORREÇÃO DE ESTILO:
-     * A div principal precisa ter a classe "card-objetivo" (base)
-     * e a classe "card-perda-peso" (específica).
-     *
-    */
+    // O .card-objetivo já tem position: relative (do cardobjetivos.css)
     <div className="card-objetivo card-perda-peso">
+      
+      {/* --- CABEÇALHO (Título e Botão de Excluir) --- */}
       <div className="card-header">
         <h3 
           contentEditable 
           suppressContentEditableWarning 
-          onBlur={(e) => handleUpdateField('titulo', e.target.innerText)}
+          onBlur={handleUpdateTitulo}
         >
           {objetivo.titulo}
         </h3>
-        {/* Botão de expandir (seta) */}
-        <button className="expand-button" onClick={() => setIsExpanded(!isExpanded)}>
-          {isExpanded ? '▼' : '►'}
+        <button onClick={() => onDelete(objetivo.id)} className="delete-button-header">
+          X
         </button>
       </div>
-      
-      <div className="progresso-info">
-        <span>Progresso: {progressoPerc}%</span>
-        <div className="progress-bar-container">
-          <div className="progress-bar" style={{ width: `${progressoPerc}%` }}></div>
+
+      {/* --- CONTEÚDO PRINCIPAL (Sempre visível) --- */}
+      <div className="default-view-container">
+        
+        {/* Barra de Progresso */}
+        <div className="progresso-info">
+          <span>Progresso: {progressoPerc}%</span>
+          <div className="progress-bar-container">
+            <div className="progress-bar" style={{ width: `${progressoPerc}%` }}></div>
+          </div>
         </div>
-        <span className="progresso-texto">
-          {pesoAtual} {objetivo.unidade} (Meta: {objetivo.valorAlvo} {objetivo.unidade})
-        </span>
+        
+        {/* Campo "Porquê" */}
+        <div className="porque-section">
+          <h4>Meu "Porquê":</h4>
+          <p>{objetivo.porque || "Nenhuma motivação definida."}</p>
+        </div>
+        
+        {/* Campos de Meta (Inicial e Final) */}
+        <div className="meta-fields-readonly stacked">
+          <div className="meta-field">
+            <span>Peso Inicial:</span>
+            <span>{objetivo.valorInicial} {objetivo.unidade}</span>
+          </div>
+          <div className="meta-field final">
+            <span>Meta de Peso:</span>
+            <span>{objetivo.valorAlvo} {objetivo.unidade}</span>
+          </div>
+        </div>
+
+        {/* Adicionar Progresso (Input) */}
+        <div className="add-progresso">
+          <input
+            type="number"
+            placeholder={`Adicionar ${isPerda ? 'peso' : 'carga'} atual...`}
+            value={novoPeso}
+            onChange={(e) => setNovoPeso(e.target.value)}
+          />
+          <button onClick={handleAddProgresso}>Atualizar</button>
+        </div>
+
+        {/* Botão de Expandir "Detalhes" (Seta de baixo) */}
+        <button className="expand-details-button" onClick={toggleDetailsView}>
+          <span className={`arrow ${isDetailsOpen ? 'down' : 'right'}`}>►</span>
+          Detalhes (Histórico e Notas)
+        </button>
+
+        {/* --- CONTEÚDO EXPANSÍVEL (Detalhes) --- */}
+        {/* Este é o painel que expande para BAIXO */}
+        {isDetailsOpen && (
+          <div className="expandable-view-container details-view-container">
+            
+            {/* Histórico de Peso */}
+            <div className="historico">
+              <h4>Histórico de Peso:</h4>
+              {objetivo.progresso.length > 0 ? (
+                <ul>
+                  {objetivo.progresso.slice().reverse().map((item, index) => (
+                    <li key={index}>
+                      {item.data}: {item.valor} {objetivo.unidade}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="historico-vazio">Nenhum registro adicionado.</p>
+              )}
+            </div>
+
+            {/* Seção de Observações */}
+            <div className="observacoes-section">
+              <h4>Observações:</h4>
+              {(objetivo.observacoes || []).length > 0 ? (
+                <ul className="obs-list">
+                  {objetivo.observacoes.slice().reverse().map((item, index) => (
+                    <li key={index} className="obs-item">
+                      <strong>{item.data}:</strong> {item.texto}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="historico-vazio">Nenhuma observação.</p>
+              )}
+              
+              <div className="add-observacao">
+                <textarea
+                  placeholder="Adicionar observação..."
+                  value={novaObservacao}
+                  onChange={(e) => setNovaObservacao(e.target.value)}
+                  rows="2"
+                ></textarea>
+                <button onClick={handleAddObservacao}>Salvar Nota</button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
-      {/* Conteúdo Expansível */}
-      {isExpanded && (
-        <div className="expanded-content">
-          <div className="meta-fields">
-            <label>
-              Peso Inicial:
-              <input 
-                type="number" 
-                value={objetivo.valorInicial} 
-                onChange={(e) => handleUpdateFieldNumeric('valorInicial', e.target.value)}
-              /> {objetivo.unidade}
-            </label>
-            <label>
-              Meta de Peso:
-              <input 
-                type="number" 
-                value={objetivo.valorAlvo} 
-                onChange={(e) => handleUpdateFieldNumeric('valorAlvo', e.target.value)}
-              /> {objetivo.unidade}
-            </label>
-          </div>
+      {/* --- BOTÃO DA SETA LATERAL (Posicionado absolutamente) --- */}
+      <button className="expand-metas-button" onClick={toggleMetasView}>
+        {isMetasViewOpen ? '‹' : '›'}
+      </button>
 
-          <hr />
-
-          <div className="add-progresso">
-            <input
-              type="number"
-              placeholder="Adicionar peso atual..."
-              value={novoPeso}
-              onChange={(e) => setNovoPeso(e.target.value)}
-            />
-            <button onClick={handleAddProgresso}>Adicionar</button>
-          </div>
-          
-          <div className="historico">
-            <h4>Histórico de Peso:</h4>
-            {objetivo.progresso.length > 0 ? (
-              <ul>
-                {/* .slice() cria uma cópia antes de reverter, para não alterar o estado original */}
-                {objetivo.progresso.slice().reverse().map((item, index) => (
-                  <li key={index}>
-                    {item.data}: {item.valor} {objetivo.unidade}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="historico-vazio">Nenhum registro adicionado.</p>
-            )}
-          </div>
+      {/* --- SUBMENU "FLYOUT" DE METAS (Posicionado absolutamente) --- */}
+      {/* Este é o painel que "flutua" à DIREITA */}
+      {isMetasViewOpen && (
+        <div className="metas-flyout-panel">
+          <h4>Sub-Metas:</h4>
+          <ul className="sub-metas-list">
+            {objetivo.subMetas.map((meta) => (
+              <li key={meta.id} className={`sub-meta-item ${meta.concluida ? 'concluida' : ''}`}>
+                {meta.concluida ? '✅' : '🎯'}
+                <span>
+                  {meta.valor} {objetivo.unidade}
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
-
-      <div className="card-actions">
-        <button onClick={() => onDelete(objetivo.id)} className="delete-button">
-          Excluir
-        </button>
-      </div>
+      
     </div>
   );
 }
