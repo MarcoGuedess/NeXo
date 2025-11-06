@@ -6,32 +6,35 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
 }
 
+/* 1. CORREÇÃO: Modal com fundo claro e mais largo */
 .modal-content {
-  background: #2a2a3e;
+  background: #f0f0e0; /* Cor de fundo clara (da sua imagem) */
   border-radius: 12px;
   padding: 30px;
   width: 90%;
-  max-width: 500px;
+  max-width: 800px; /* Modal mais largo para 2 colunas */
   outline: none;
-  border: 1px solid #4a4a6a;
-  color: white;
+  border: 1px solid #c1caa5;
+  color: #333; /* Texto escuro */
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-.modal-content h2 {
+.modal-title-light {
   margin-top: 0;
   text-align: center;
-  color: #e0e0e0;
+  color: #555;
   font-weight: 600;
   margin-bottom: 25px;
 }
+
+/* --- PASSO 1: Seleção de Tipo (Cores Claras) --- */
 
 .goal-type-list {
   display: grid; 
@@ -40,9 +43,9 @@
 }
 
 .goal-type-button {
-  background-color: #1e1e2d;
-  color: #e0e0e0;
-  border: 1px solid #4a4a6a;
+  background-color: #d8e0b4; /* Verde claro para os botões */
+  color: #333;
+  border: 1px solid #c1caa5;
   padding: 20px;
   border-radius: 8px;
   font-size: 16px;
@@ -54,15 +57,12 @@
 }
 
 .goal-type-button:hover {
-  /* CORREÇÃO DA COR */
-  background-color: #10b981; 
+  background-color: #a3af8c; /* Verde musgo (do card) no hover */
   color: white;
-  border-color: #10b981;
+  border-color: #a3af8c;
   transform: translateY(-3px);
-  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
 }
 
-/* Botão de fechar (Vermelho) */
 .modal-close-button {
   background-color: #dc2626; 
   color: white;
@@ -75,7 +75,204 @@
   float: right;
   transition: background-color 0.2s;
 }
-
 .modal-close-button:hover {
   background-color: #b91c1c;
+}
+
+
+/* --- PASSO 2: Layout de Duas Colunas --- */
+
+.modal-layout-twocol {
+  display: flex;
+  gap: 30px;
+}
+.modal-form-details {
+  flex: 1; /* Coluna do formulário ocupa 50% */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.modal-preview {
+  flex: 1; /* Coluna da pré-visualização ocupa 50% */
+}
+.modal-preview h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #555;
+  font-weight: 500;
+}
+
+/* --- Estilos do Formulário (Esquerda) --- */
+.modal-form-details label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-weight: 500;
+  color: #555;
+}
+.form-input,
+.form-textarea {
+  background-color: #d8e0b4; /* Verde claro */
+  color: #333;
+  border: 1px solid #c1caa5;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+}
+.form-textarea {
+  resize: vertical;
+}
+
+/* Botões de Ação do Formulário (Voltar / Criar) */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+.form-button-back {
+  background-color: #d8e0b4;
+  color: #333;
+  border: 1px solid #c1caa5;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.form-button-create {
+  background-color: #a3af8c; /* Verde musgo (cor de destaque) */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* --- ESTILOS DA PRÉ-VISUALIZAÇÃO (Direita) --- */
+
+/* 2. CORREÇÃO: Pré-visualização em "Tamanho Real" */
+.preview-card {
+  /* Usa as cores do card real */
+  background-color: #a3af8c; 
+  border: 1px solid #7d876d;
+  border-radius: 12px;
+  padding: 20px;
+  color: #333;
+  
+  /* Garante que o card ocupe o espaço */
+  min-height: 300px; 
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-card-header {
+  border-bottom: 1px solid #7d876d;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+.preview-card-header h3 {
+  margin: 0;
+  color: #333;
+  word-break: break-all;
+}
+
+.preview-card-layout {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+.preview-main-content {
+  flex-grow: 1;
+  min-width: 0;
+}
+.preview-sidebar {
+  flex-shrink: 0;
+  width: 140px; 
+  padding-left: 20px;
+  border-left: 1px solid #7d876d;
+}
+.preview-sidebar h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Barra de Progresso da Pré-visualização */
+.preview-progress-info {
+  margin-bottom: 15px;
+}
+.preview-progress-bar-container {
+  width: 100%;
+  background-color: #7d876d;
+  border-radius: 5px;
+  height: 10px;
+}
+.preview-progress-bar {
+  height: 100%;
+  background-color: #555;
+  border-radius: 5px;
+}
+
+/* Seção "Porquê" da Pré-visualização */
+.preview-porque-section {
+  background-color: #7d876d;
+  color: white;
+  border-radius: 6px;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+}
+.preview-porque-section h4 {
+  margin: 0 0 5px 0;
+  font-size: 14px;
+  color: #eee;
+}
+.preview-porque-section p {
+  margin: 0;
+  font-style: italic;
+  font-size: 14px;
+  word-break: break-all;
+  max-height: 60px;
+  overflow: hidden;
+}
+
+/* Metas da Pré-visualização (Barra Lateral) */
+.preview-meta-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 15px;
+}
+.preview-meta-field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  background-color: #7d876d;
+  color: white;
+  padding: 5px 8px;
+  border-radius: 4px;
+}
+.preview-meta-field.final {
+  background-color: #555;
+}
+.preview-meta-field span:first-child {
+  color: #eee;
+  font-size: 12px;
+}
+.preview-meta-field span:last-child {
+  font-weight: bold;
+}
+
+.preview-sub-metas-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  font-size: 14px;
+  color: #555;
+}
+.preview-sub-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
