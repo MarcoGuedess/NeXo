@@ -1,54 +1,66 @@
 // src/hooks/useObjetivos.jsx
-
 import { useState } from 'react';
 
-// A função getInitialCardData continua a mesma...
-const getInitialCardData = (type) => {
-  const baseData = {
-    id: Date.now(),
-    type: type,
-    titulo: `Novo Objetivo: ${type.replace('_', ' ')}`,
-    status: 'Em Andamento',
-  };
+// FUNÇÃO AUXILIAR ATUALIZADA: Gera 4 metas de 25%
+const gerarSubMetas = (inicial, alvo) => {
+  const inicialNum = parseFloat(inicial);
+  const alvoNum = parseFloat(alvo);
+  
+  const metaTotal = alvoNum - inicialNum; // Pode ser positivo (ganho) ou negativo (perda)
+  
+  // Arredonda para 2 casas decimais
+  const arredondar = (num) => Math.round(num * 100) / 100;
 
-  switch (type) {
-    case 'PERDA_PESO':
-    case 'PERDA_GORDURA':
-    case 'GANHO_MASSA':
-    case 'PROGRESSAO_CARGA':
-      return {
-        ...baseData,
-        unidade: type === 'PROGRESSAO_CARGA' ? 'kg (carga)' : 'kg (corporal)',
-        valorInicial: 0,
-        valorAlvo: 10,
-        progresso: [], 
-        subMetas: [], 
-      };
-    case 'FREQUENCIA':
-      return {
-        ...baseData,
-        frequenciaSemanal: 3,
-        diasMarcados: [],
-      };
-    default:
-      return {
-        ...baseData,
-        type: 'GENERICO',
-        titulo: 'Novo Objetivo',
-        texto: 'Escreva seu objetivo aqui...',
-      };
-  }
+  if (metaTotal === 0) return [];
+
+  return [
+    { id: 1, valor: arredondar(inicialNum + metaTotal * 0.25), concluida: false },
+    { id: 2, valor: arredondar(inicialNum + metaTotal * 0.50), concluida: false },
+    { id: 3, valor: arredondar(inicialNum + metaTotal * 0.75), concluida: false },
+    { id: 4, valor: arredondar(alvoNum), concluida: false }, // A meta final
+  ];
 };
 
 export function useObjetivos() {
   const [objetivos, setObjetivos] = useState([]);
 
-  //
-  // CORREÇÃO DA LÓGICA:
-  // Adiciona o novo card ao FINAL da lista.
-  //
-  const addCard = (type) => {
-    const novoCard = getInitialCardData(type);
+  const addCard = (cardData) => {
+    // cardData = { type, titulo, valorInicial, valorAlvo, porque }
+    
+    let subMetas = [];
+    let unidade = '';
+
+    const { type, valorInicial, valorAlvo } = cardData;
+
+    // Gera sub-metas apenas para os tipos quantitativos
+    switch (type) {
+      case 'PERDA_PESO':
+      case 'PERDA_GORDURA':
+        unidade = 'kg (corporal)';
+        subMetas = gerarSubMetas(valorInicial, valorAlvo);
+        break;
+      case 'GANHO_MASSA':
+        unidade = 'kg (corporal)';
+        subMetas = gerarSubMetas(valorInicial, valorAlvo);
+        break;
+      case 'PROGRESSAO_CARGA':
+        unidade = 'kg (carga)';
+        subMetas = gerarSubMetas(valorInicial, valorAlvo);
+        break;
+      default:
+        break;
+    }
+
+    const novoCard = {
+      id: Date.now(),
+      status: 'Em Andamento',
+      progresso: [],
+      observacoes: [], // Array para observações
+      ...cardData, // Inclui type, titulo, valorInicial, valorAlvo, porque
+      unidade: unidade,
+      subMetas: subMetas,
+    };
+    
     setObjetivos((prevObjetivos) => [...prevObjetivos, novoCard]);
   };
 
