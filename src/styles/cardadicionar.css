@@ -1,15 +1,11 @@
 /* src/styles/cardadicionar.css */
 
 .card-adicionar {
-  /* CORREÇÃO DA COR DE FUNDO (Verde Musgo) */
-  background-color: #1A302D; 
-  
-  /* Borda tracejada em tom de verde */
-  border: 2px dashed #2A524C; 
+  background-color: #a3af8c; 
+  border: 2px dashed #7d876d; /* Borda tracejada mais escura */
   border-radius: 12px;       
   padding: 20px;
   
-  /* Altura fixa (maior) */
   height: 250px; 
   box-sizing: border-box; 
 
@@ -18,7 +14,10 @@
   align-items: center;
 
   cursor: pointer;
-  transition: all 0.2s ease;
+  
+  /* --- UX/UI: PROFUNDIDADE E TRANSIÇÃO --- */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
 /* Estilo do ícone "+" */
@@ -27,19 +26,19 @@
   font-weight: 200;
   line-height: 1;
   
-  /* CORREÇÃO DA COR (Verde claro) */
-  color: #34D399; 
-  transition: all 0.2s ease;
-  z-index: 1;
+  /* --- UX/UI: COR MAIS SUAVE --- */
+  color: #7d876d; /* Cor mais suave, menos "vibrante" */
+  transition: all 0.3s ease;
 }
 
-/* Efeito de hover */
+/* --- UX/UI: FEEDBACK DE HOVER --- */
 .card-adicionar:hover {
-  border-color: #34D399; /* Borda fica verde claro */
-  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  border-color: #555; /* Borda mais forte no hover */
 }
 
 .card-adicionar:hover .plus-icon {
-  color: white; 
+  color: #333; /* Cor mais escura no hover */
   transform: scale(1.1);
 }
