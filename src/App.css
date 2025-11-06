@@ -5,34 +5,39 @@
 /* src/App.css */
 
 body {
-    background-color: #1a1a2e;
-    color: white;
+    /* CORREÇÃO DA COR DE FUNDO PRINCIPAL */
+    background-color: #c1caa5; /* Verde claro dos seus mockups */
+    color: #333; /* Texto escuro para contraste no fundo claro */
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
 
+/* O container que engloba todos os cards */
 .container {
-    /* 1. ESPAÇAMENTO:
-     * "Mais para o canto esquerdo":
-     * Diminuí o padding de 220px para 210px.
-     * (Assumindo que seu menu tem 200px, isso dá 10px de vão. Ajuste se precisar).
+    /* 1. LAYOUT (POSIÇÃO DO CARD ADICIONAR):
+     * "mais a esquerda proximo a beirada"
+     * Reduzindo o padding-left drasticamente.
+     * Assumindo que seu menu lateral SUMIU no mockup,
+     * vamos dar um padding pequeno para a esquerda.
+     * Se o menu voltar, precisaremos reajustar.
     */
-    padding: 20px 20px 20px 210px;
+    padding: 20px 20px 20px 20px; /* 20px de espaçamento em todas as bordas do container */
     
     display: grid;
     
-    /* 2. LARGURA:
-     * "Menos largo":
-     * Diminuí a largura máxima de 800px para 600px.
+    /* 2. LAYOUT (LARGURA):
+     * Permite que a coluna se estique até 600px, mas não mais que isso.
+     * 'minmax(auto, 600px)' é ideal para o "menos largo".
     */
     grid-template-columns: minmax(auto, 600px);
     
     /* 3. ALINHAMENTO:
-     * Alinha a coluna única à esquerda (em vez de centralizar).
+     * Alinha a coluna única à esquerda.
+     * (Removi o 'justify-content: center' anterior)
     */
-    justify-content: left;
+    justify-content: start; 
     
-    gap: 20px;
-    align-items: start;
+    gap: 20px; /* Espaço entre os cards */
+    align-items: start; /* Impede que os cards se estiquem */
 }
