@@ -1,5 +1,4 @@
 // src/pages/Home.jsx
-
 import React, { useState } from 'react';
 import CardObjetivos from '../components/cardobjetivos.jsx';
 import CardAdicionar from '../components/cardadicionar.jsx';
@@ -9,29 +8,23 @@ import { useObjetivos } from '../hooks/useObjetivos.jsx';
 function Home() {
   const { objetivos, addCard, deleteCard, updateCard } = useObjetivos();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  const handleOpenModal = () => setIsModalOpen(true);
+  const handleCloseModal = () => setIsModalOpen(false);
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleSelectType = (type) => {
-    addCard(type); // Adiciona no final (graças ao hook)
-    handleCloseModal();
+  // 1. ESTA FUNÇÃO (handleCreateCard) É CHAMADA PELO MODAL
+  const handleCreateCard = (cardData) => {
+    addCard(cardData); // Adiciona o card
+    handleCloseModal(); // Fecha o modal
   };
 
   return (
     <div className="container">
-      
-      {/* Se a lista estiver VAZIA, o "Adicionar" aparece no topo. */}
+      {/* Lógica de posição (sem mudança) */}
       {objetivos.length === 0 && (
         <CardAdicionar onAddCard={handleOpenModal} />
       )}
 
-      {/* A lista de cards de objetivo (Renderizada PRIMEIRO) */}
       {objetivos.map((objetivo) => (
         <CardObjetivos
           key={objetivo.id}
@@ -41,16 +34,21 @@ function Home() {
         />
       ))}
 
-      {/* Se a lista NÃO ESTIVER VAZIA, o "Adicionar" aparece no FINAL. */}
       {objetivos.length > 0 && (
         <CardAdicionar onAddCard={handleOpenModal} />
       )}
 
-      {/* O Modal */}
+      {/* * =============================================================
+        * A CORREÇÃO CRÍTICA DO BOTÃO ESTÁ AQUI
+        * =============================================================
+        *
+        * Estávamos passando a prop 'onSelectType' (antiga).
+        * Agora passamos a prop 'onCreateCard' (correta).
+      */}
       <ModalObjetivos
         isOpen={isModalOpen}
         onClose={handleCloseModal}
-        onSelectType={handleSelectType}
+        onCreateCard={handleCreateCard} 
       />
     </div>
   );
