@@ -32,7 +32,7 @@ function CardPerdaPeso({ objetivo, onDelete, onUpdate }) {
     ? Math.min(100, Math.round((progressoNumerador / progressoDenominador) * 100)) 
     : 0;
 
-  // --- LÓGICA DE ADICIONAR PROGRESSO (COM CHECK DE SUB-METAS) ---
+  // --- LÓGICA DE ADICIONAR PROGRESSO (COM CHECK DE SUB-METAS E REGRESSÃO) ---
   const handleAddProgresso = () => {
     if (novoPeso === '' || isNaN(parseFloat(novoPeso))) return;
     const novoValorPeso = parseFloat(novoPeso);
@@ -41,13 +41,32 @@ function CardPerdaPeso({ objetivo, onDelete, onUpdate }) {
       valor: novoValorPeso,
     };
     
+    const isPerda = objetivo.valorAlvo < objetivo.valorInicial;
+    
     const novasSubMetas = objetivo.subMetas.map(meta => {
-      if (meta.concluida) return meta;
-      const isPerda = objetivo.valorAlvo < objetivo.valorInicial;
-      if ((isPerda && novoValorPeso <= meta.valor) || (!isPerda && novoValorPeso >= meta.valor)) {
-        return { ...meta, concluida: true };
+      // Se já estava concluída, verifica se regrediu
+      if (meta.concluida) {
+        // Verifica se houve regressão
+        const regrediu = isPerda 
+          ? novoValorPeso > meta.valor  // Para perda: peso voltou a subir acima da meta
+          : novoValorPeso < meta.valor; // Para ganho: peso caiu abaixo da meta
+        
+        if (regrediu) {
+          return { ...meta, concluida: false, regredida: true };
+        }
+        return meta; // Mantém concluída
       }
-      return meta;
+      
+      // Se não estava concluída, verifica se atingiu agora
+      const atingiu = isPerda 
+        ? novoValorPeso <= meta.valor 
+        : novoValorPeso >= meta.valor;
+      
+      if (atingiu) {
+        return { ...meta, concluida: true, regredida: false };
+      }
+      
+      return { ...meta, regredida: false };
     });
 
     onUpdate(objetivo.id, {
@@ -216,8 +235,8 @@ function CardPerdaPeso({ objetivo, onDelete, onUpdate }) {
           <h4>Sub-Metas:</h4>
           <ul className="sub-metas-list">
             {objetivo.subMetas.map((meta) => (
-              <li key={meta.id} className={`sub-meta-item ${meta.concluida ? 'concluida' : ''}`}>
-                {meta.concluida ? '✅' : '🎯'}
+              <li key={meta.id} className={`sub-meta-item ${meta.concluida ? 'concluida' : ''} ${meta.regredida ? 'regredida' : ''}`}>
+                {meta.regredida ? '😢' : meta.concluida ? '✅' : '🎯'}
                 <span>
                   {meta.valor} {objetivo.unidade}
                 </span>

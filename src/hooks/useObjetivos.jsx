@@ -14,10 +14,10 @@ const gerarSubMetas = (inicial, alvo) => {
   if (metaTotal === 0) return [];
 
   return [
-    { id: 1, valor: arredondar(inicialNum + metaTotal * 0.25), concluida: false },
-    { id: 2, valor: arredondar(inicialNum + metaTotal * 0.50), concluida: false },
-    { id: 3, valor: arredondar(inicialNum + metaTotal * 0.75), concluida: false },
-    { id: 4, valor: arredondar(alvoNum), concluida: false }, // A meta final
+    { id: 1, valor: arredondar(inicialNum + metaTotal * 0.25), concluida: false, regredida: false },
+    { id: 2, valor: arredondar(inicialNum + metaTotal * 0.50), concluida: false, regredida: false },
+    { id: 3, valor: arredondar(inicialNum + metaTotal * 0.75), concluida: false, regredida: false },
+    { id: 4, valor: arredondar(alvoNum), concluida: false, regredida: false }, // A meta final
   ];
 };
 

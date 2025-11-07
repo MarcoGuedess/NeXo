@@ -15,7 +15,7 @@
 
 /* 1. CORREÇÃO: Modal com fundo claro e mais largo */
 .modal-content {
-  background: #f0f0e0; /* Cor de fundo clara (da sua imagem) */
+  background: #f0f0e0 !important; /* Cor de fundo clara (da sua imagem) com !important */
   border-radius: 12px;
   padding: 30px;
   width: 90%;
@@ -24,6 +24,7 @@
   border: 1px solid #c1caa5;
   color: #333; /* Texto escuro */
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  opacity: 1 !important; /* Garante opacidade total */
 }
 
 .modal-title-light {

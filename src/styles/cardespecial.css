@@ -109,13 +109,15 @@
   background-color: #c1caa5; /* Fundo mais claro */
   border-radius: 8px;
   height: 12px; /* Mais grossa */
-  overflow: hidden; 
+  overflow: hidden;
+  position: relative; /* Garante que a barra interna fique posicionada corretamente */
 }
 .progress-bar {
   background-color: #555; /* Cor de progresso escura */
   border-radius: 8px;
   height: 100%;
   transition: width 0.5s ease-in-out; /* Transição mais suave */
+  min-width: 0; /* Permite que comece do zero */
 }
 
 /* --- Seção "Porquê" (Hierarquia) --- */
@@ -294,6 +296,13 @@
 }
 .metas-flyout-panel .sub-meta-item.concluida span {
   opacity: 0.6; 
+}
+.metas-flyout-panel .sub-meta-item.regredida {
+  color: #dc2626;
+  font-weight: 500;
+}
+.metas-flyout-panel .sub-meta-item.regredida span {
+  opacity: 0.8;
 }
 
 
