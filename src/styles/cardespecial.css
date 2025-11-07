@@ -105,19 +105,24 @@
   font-size: 0.9rem;
 }
 .progress-bar-container {
-  width: 100%;
-  background-color: #c1caa5; /* Fundo mais claro */
+  width: 100% !important;
+  background-color: #c1caa5 !important; /* Fundo mais claro */
+  border: 2px solid #000 !important; /* BORDA PRETA */
   border-radius: 8px;
-  height: 12px; /* Mais grossa */
+  height: 12px !important; /* Mais grossa */
   overflow: hidden;
-  position: relative; /* Garante que a barra interna fique posicionada corretamente */
+  position: relative !important;
+  display: block !important;
+  box-sizing: border-box !important; /* Garante que a borda não aumente o tamanho total */
 }
 .progress-bar {
-  background-color: #555; /* Cor de progresso escura */
-  border-radius: 8px;
-  height: 100%;
-  transition: width 0.5s ease-in-out; /* Transição mais suave */
-  min-width: 0; /* Permite que comece do zero */
+  background-color: #2600ff !important; /* Cor de progresso escura */
+  border-radius: 6px; /* Um pouco menor que o container para não sobrepor a borda */
+  height: 100% !important;
+  transition: width 0.5s ease-in-out !important;
+  min-width: 0 !important;
+  display: block !important;
+  position: relative !important;
 }
 
 /* --- Seção "Porquê" (Hierarquia) --- */
@@ -152,9 +157,9 @@
   justify-content: space-between;
   align-items: center;
   font-size: 14px;
-  background-color: transparent; /* Limpo */
-  border: 1px solid #c1caa5; /* Borda sutil */
-  color: #333;
+  background-color: #93997f; /* Limpo */
+  border: 1px solid #93997f; /* Borda sutil */
+  color: #000000;
   padding: 8px 12px;
   border-radius: 6px;
 }
@@ -164,7 +169,7 @@
   color: white;
 }
 .meta-field span:first-child {
-  color: #555;
+  color: #000000;
   font-size: 0.9rem;
 }
 .meta-field.final span:first-child {

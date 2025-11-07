@@ -11,7 +11,7 @@ function CardPerdaPeso({ objetivo, onDelete, onUpdate }) {
   const [novoPeso, setNovoPeso] = useState('');
   const [novaObservacao, setNovaObservacao] = useState('');
 
-  // LÓGICA DE PROGESSO (Correta, 25%)
+  // LÓGICA DE PROGRESSO (Correta, 25%)
   const pesoAtual = objetivo.progresso.length > 0 
     ? objetivo.progresso[objetivo.progresso.length - 1].valor 
     : objetivo.valorInicial;
@@ -31,6 +31,16 @@ function CardPerdaPeso({ objetivo, onDelete, onUpdate }) {
   const progressoPerc = progressoDenominador > 0 
     ? Math.min(100, Math.round((progressoNumerador / progressoDenominador) * 100)) 
     : 0;
+
+  // Debug: console.log para verificar o progresso
+  console.log('Progresso Debug:', {
+    pesoAtual,
+    valorInicial: objetivo.valorInicial,
+    valorAlvo: objetivo.valorAlvo,
+    progressoNumerador,
+    progressoDenominador,
+    progressoPerc
+  });
 
   // --- LÓGICA DE ADICIONAR PROGRESSO (COM CHECK DE SUB-METAS E REGRESSÃO) ---
   const handleAddProgresso = () => {
@@ -130,11 +140,19 @@ function CardPerdaPeso({ objetivo, onDelete, onUpdate }) {
       {/* --- CONTEÚDO PRINCIPAL (Sempre visível) --- */}
       <div className="default-view-container">
         
-        {/* Barra de Progresso */}
+        {/* Barra de Progresso - CORRIGIDA */}
         <div className="progresso-info">
           <span>Progresso: {progressoPerc}%</span>
           <div className="progress-bar-container">
-            <div className="progress-bar" style={{ width: `${progressoPerc}%` }}></div>
+            <div 
+              className="progress-bar" 
+              style={{ 
+                width: `${progressoPerc}%`,
+                minWidth: progressoPerc > 0 ? '2%' : '0%', // Mínimo visível quando há progresso
+                height: '100%',
+                display: 'block'
+              }}
+            ></div>
           </div>
         </div>
         
