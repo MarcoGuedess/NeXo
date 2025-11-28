@@ -1,0 +1,274 @@
+.academia-container {
+  padding: 30px;
+  margin-left: 80px; /* Espaço para o menu lateral */
+  min-height: 100vh;
+  background-color: #c1caa5;
+}
+
+.academia-titulo {
+  color: #333;
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+.academia-content {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+/* Card de Upload da Ficha */
+.card-ficha {
+  background-color: #a3af8c;
+  border: 1px solid #7d876d;
+  border-radius: 12px;
+  padding: 25px;
+  width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-ficha h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+}
+
+/* Área de Upload */
+.upload-area {
+  border: 2px dashed #7d876d;
+  border-radius: 12px;
+  padding: 40px 20px;
+  text-align: center;
+  background-color: #d8e0b4;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.upload-area:hover {
+  border-color: #555;
+  background-color: #c1caa5;
+}
+
+.upload-area.has-image {
+  padding: 15px;
+}
+
+.upload-icon {
+  font-size: 3rem;
+  color: #7d876d;
+  margin-bottom: 15px;
+}
+
+.upload-area p {
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.upload-area span {
+  color: #7d876d;
+  font-size: 0.9rem;
+}
+
+.ficha-preview {
+  max-width: 100%;
+  max-height: 250px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.upload-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #555;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 15px;
+  transition: background-color 0.2s ease;
+}
+
+.upload-button:hover {
+  background-color: #333;
+}
+
+/* Botão Processar */
+.processar-button {
+  width: 100%;
+  padding: 15px;
+  margin-top: 20px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background-color 0.2s ease;
+}
+
+.processar-button:hover:not(:disabled) {
+  background-color: #1d4ed8;
+}
+
+.processar-button:disabled {
+  background-color: #7d876d;
+  cursor: not-allowed;
+}
+
+/* Animação de loading */
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Card de Resultado */
+.card-resultado {
+  background-color: #f0f0e0;
+  border: 1px solid #c1caa5;
+  border-radius: 12px;
+  padding: 25px;
+  flex: 1;
+  min-width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.resultado-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #c1caa5;
+}
+
+.success-icon {
+  color: #22c55e;
+  font-size: 1.5rem;
+}
+
+.resultado-header h2 {
+  color: #333;
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+/* Tabela de Exercícios */
+.exercicios-list table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.exercicios-list th,
+.exercicios-list td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #d8e0b4;
+}
+
+.exercicios-list th {
+  background-color: #d8e0b4;
+  color: #555;
+  font-weight: 600;
+}
+
+.exercicios-list td {
+  color: #333;
+}
+
+.exercicios-list tr:hover {
+  background-color: #d8e0b4;
+}
+
+/* Observações */
+.observacoes {
+  background-color: #d8e0b4;
+  padding: 12px 15px;
+  border-radius: 8px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* Botões de Ação */
+.resultado-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-salvar,
+.btn-editar,
+.btn-nova {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-salvar {
+  background-color: #22c55e;
+  color: white;
+}
+
+.btn-salvar:hover {
+  background-color: #16a34a;
+}
+
+.btn-editar {
+  background-color: #f59e0b;
+  color: white;
+}
+
+.btn-editar:hover {
+  background-color: #d97706;
+}
+
+.btn-nova {
+  background-color: #555;
+  color: white;
+}
+
+.btn-nova:hover {
+  background-color: #333;
+}
+
+/* Mensagem de erro */
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  padding: 12px 15px;
+  border-radius: 8px;
+  margin-top: 15px;
+  font-weight: 500;
+}
+
+.card-descricao {
+  color: #555;
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.sem-exercicios {
+  color: #7d876d;
+  text-align: center;
+  padding: 20px;
+  font-style: italic;
+}
