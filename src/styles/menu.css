@@ -1,37 +1,149 @@
-.navbar {
-  background-color: #7e8c54;
-  font-size: 20px;
-  text-align: center;
-  padding: 10px;
-  position: sticky;
-  top: 0;
+/* src/styles/menu.css */
+
+.menu-container {
+    /* Começa pequeno, apenas com 70px de largura. */
+    width: 70px;
+    height: 100vh;
+    background-color: #1e1e2d; 
+    padding: 20px 15px; /* Padding ajustado */
+    position: fixed; 
+    top: 0;
+    left: 0;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    overflow-x: hidden; /* Esconde o texto quando encolhe */
+    
+    /* --- 2. CORREÇÃO DA BARRA DE ROLAGEM DO MENU --- */
+    overflow-y: hidden; /* Esconde a barra de rolagem vertical */
+    
+    transition: width 0.3s ease-in-out;
+    z-index: 100; /* Garante que o menu fique na frente */
 }
 
-.navbar-brand {
-  color: white !important;
-  font-weight: bold;
-  font-size: 50px;
-  margin-left: 10px;
+/* Quando o mouse passa por cima, ele expande para 200px. */
+.menu-container:hover {
+    width: 200px;
 }
 
-.nav-link {
-  color: white !important;
-  font-weight: bold;
-  font-size: 20px;
-  margin-left: 10px;
-  text-align: center;
-  padding: 10px;
+.menu-logo {
+    text-align: center;
+    margin-bottom: 40px;
+    transition: all 0.3s ease;
 }
 
-.custom-footer {
-  background-color: #7e8c54;
-  border-radius: 15px;
-  margin-top: 20px;
-  padding: 10px;
-  text-align: center;
-  color: white;
-  position: fixed;
-    bottom: 0;
-    width: 80%;
-    margin-left: 10%;
+.menu-logo img {
+    max-width: 100px;
+    width: 40px; 
+}
+
+.menu-container:hover .menu-logo img {
+    width: 100px;
+}
+
+.menu-itens {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    height: calc(100% - 100px); 
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza verticalmente */
+    gap: 20px; 
+}
+
+.menu-item {
+    padding: 0; 
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+    position: relative;
+}
+
+.menu-item > a {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 10px;
+    white-space: nowrap; /* Impede que o texto quebre a linha */
+}
+
+.menu-item:hover {
+    background-color: #2a2a3e;
+}
+
+.menu-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0; 
+}
+
+.menu-text {
+    opacity: 0; 
+    transition: opacity 0.2s ease-in-out;
+}
+
+.menu-container:hover .menu-text {
+    opacity: 1;
+}
+
+/* --- DROPDOWN --- */
+
+.dropdown-content {
+    display: none;
+    list-style: none;
+    padding-left: 0;
+    margin-top: 0;
+    
+    /* Estilo flutuante */
+    position: absolute;
+    left: 100%; 
+    top: 0;
+    background-color: #2a2a3e;
+    border-radius: 0 8px 8px 0;
+    padding: 10px 15px;
+    width: 150px; 
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Quando o menu está EXPANDIDO, o dropdown aparece embaixo */
+.menu-container:hover .dropdown:hover .dropdown-content {
+    position: static;
+    background-color: transparent;
+    box-shadow: none;
+    width: auto;
+    padding-left: 25px; /* Indentação normal */
+    padding-top: 10px;
+}
+
+/* Ícone do dropdown */
+.dropdown-icon {
+  font-size: 0.9rem;
+  margin-right: 8px;
+  opacity: 0.8;
+}
+
+.dropdown-content li a {
+  color: #a5a5a5; 
+  text-decoration: none;
+  font-size: 0.95rem;
+  padding: 8px 0;
+  display: flex; /* Mudança para flex */
+  align-items: center;
+  transition: color 0.2s ease;
+  white-space: nowrap;
+}
+
+.dropdown-content li a:hover {
+  color: #f0f0e0;
+}
+
+.dropdown-content li a:hover .dropdown-icon {
+  opacity: 1;
 }
