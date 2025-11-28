@@ -1,43 +1,64 @@
-#root{
-  background-color: #c1caa5 !important;  
-}
-
 /* src/App.css */
 
+/* --- 3. CORREÇÃO DA COR DA BARRA DE ROLAGEM --- */
 body {
-    /* CORREÇÃO DA COR DE FUNDO PRINCIPAL */
-    background-color: #c1caa5; /* Verde claro dos seus mockups */
-    color: #333; /* Texto escuro para contraste no fundo claro */
+    background-color: #c1caa5; /* Fundo verde-musgo claro */
+    color: #333;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+
+    /* Estiliza a barra de rolagem principal */
+    scrollbar-width: thin;
+    scrollbar-color: #7d876d #c1caa5; /* Cor da barra / Fundo */
+}
+body::-webkit-scrollbar {
+    width: 10px;
+}
+body::-webkit-scrollbar-track {
+    background: #c1caa5; /* Fundo da barra */
+}
+body::-webkit-scrollbar-thumb {
+    background-color: #7d876d; /* Cor da barra (verde-escuro) */
+    border-radius: 6px;
+    border: 2px solid #c1caa5; /* Borda da cor do fundo */
 }
 
-/* O container que engloba todos os cards */
+
+/* --- 1. CORREÇÃO DOS OBJETIVOS ESCONDIDOS --- */
+
+/* Wrapper principal do App.jsx */
+.app-container {
+  display: flex;
+}
+
+/* A área de conteúdo principal (onde a Home é renderizada) */
+.content {
+  flex-grow: 1; /* Ocupa o resto da tela */
+  
+  /* ESTA É A CORREÇÃO:
+     Empurra o conteúdo para a direita, para fora de trás do menu.
+     (200px do menu aberto + 20px de vão = 220px).
+     Ajuste este valor se o seu menu.css tiver uma largura diferente.
+  */
+  padding-left: 220px;
+  
+  /* Animação suave quando o menu abrir/fechar */
+  /* (Removemos a transição daqui por enquanto, 
+     pois o menu flutua sobre o conteúdo) */
+}
+
+
+/* O container dos cards (dentro da Home.jsx) */
 .container {
-    /* 1. LAYOUT (POSIÇÃO DO CARD ADICIONAR):
-     * "mais a esquerda proximo a beirada"
-     * Reduzindo o padding-left drasticamente.
-     * Assumindo que seu menu lateral SUMIU no mockup,
-     * vamos dar um padding pequeno para a esquerda.
-     * Se o menu voltar, precisaremos reajustar.
-    */
-    padding: 20px 20px 20px 20px; /* 20px de espaçamento em todas as bordas do container */
+    /* Padding-left foi movido para .content */
+    /* Adicionamos o padding-top que você queria */
+    padding: 20px; 
     
+    /* Layout de Coluna Única */
     display: grid;
-    
-    /* 2. LAYOUT (LARGURA):
-     * Permite que a coluna se estique até 600px, mas não mais que isso.
-     * 'minmax(auto, 600px)' é ideal para o "menos largo".
-    */
     grid-template-columns: minmax(auto, 600px);
-    
-    /* 3. ALINHAMENTO:
-     * Alinha a coluna única à esquerda.
-     * (Removi o 'justify-content: center' anterior)
-    */
-    justify-content: start; 
-    
-    gap: 20px; /* Espaço entre os cards */
-    align-items: start; /* Impede que os cards se estiquem */
+    justify-content: center;
+    gap: 20px;
+    align-items: start;
 }
