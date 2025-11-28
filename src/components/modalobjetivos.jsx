@@ -14,7 +14,7 @@ const goalTypes = [
 ];
 const tiposQuantitativos = ['PERDA_PESO', 'PERDA_GORDURA', 'GANHO_MASSA', 'PROGRESSAO_CARGA'];
 
-function ModalObjetivos({ isOpen, onClose, onCreateCard }) { // Recebe onCreateCard
+function ModalObjetivos({ isOpen, onClose, onCreateCard }) {
   const [step, setStep] = useState('selectType'); 
   const [selectedType, setSelectedType] = useState(null);
   
@@ -23,6 +23,8 @@ function ModalObjetivos({ isOpen, onClose, onCreateCard }) { // Recebe onCreateC
     valorInicial: '',
     valorAlvo: '',
     porque: '',
+    tipoDeMeta: 'semanal', // NOVO: Padrão para frequência
+    valorDaMeta: 3,      // NOVO: Padrão para frequência
   });
 
   const handleTypeSelect = (type) => {
@@ -32,6 +34,8 @@ function ModalObjetivos({ isOpen, onClose, onCreateCard }) { // Recebe onCreateC
       valorInicial: '',
       valorAlvo: '',
       porque: '',
+      tipoDeMeta: 'semanal',
+      valorDaMeta: 3,
     });
     setStep('fillDetails');
   };
@@ -46,7 +50,6 @@ function ModalObjetivos({ isOpen, onClose, onCreateCard }) { // Recebe onCreateC
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // 3. CORREÇÃO: Esta função CHAMA a prop 'onCreateCard'
   const handleSubmit = () => {
     const cardData = {
       type: selectedType.type,
@@ -54,14 +57,16 @@ function ModalObjetivos({ isOpen, onClose, onCreateCard }) { // Recebe onCreateC
       valorInicial: parseFloat(formData.valorInicial) || 0,
       valorAlvo: parseFloat(formData.valorAlvo) || 0,
       porque: formData.porque,
+      // NOVO: Passa os dados da meta de frequência
+      tipoDeMeta: formData.tipoDeMeta,
+      valorDaMeta: parseFloat(formData.valorDaMeta) || 0,
     };
+    
     if (tiposQuantitativos.includes(cardData.type) && cardData.valorInicial === cardData.valorAlvo) {
       alert('O valor inicial e a meta final não podem ser iguais.');
       return;
     }
-    
-    onCreateCard(cardData); // Chama a função da Home.jsx
-    
+    onCreateCard(cardData);
     handleClose(); 
   };
 
@@ -71,7 +76,7 @@ function ModalObjetivos({ isOpen, onClose, onCreateCard }) { // Recebe onCreateC
     onClose(); 
   };
 
-  // PASSO 1: Seleção de Tipo
+  // --- PASSO 1: Seleção de Tipo (Sem mudança) ---
   const renderSelectType = () => (
     <>
       <h2 className="modal-title-light">Escolha o Tipo de Meta</h2>
@@ -92,10 +97,11 @@ function ModalObjetivos({ isOpen, onClose, onCreateCard }) { // Recebe onCreateC
     </>
   );
 
-  // PASSO 2: Pré-visualização Interativa
+  // --- PASSO 2: Pré-visualização (COM NOVOS CAMPOS) ---
   const renderFillDetails = () => {
     const isQuantitativo = tiposQuantitativos.includes(selectedType.type);
-    const { titulo, valorInicial, valorAlvo, porque } = formData;
+    const isFrequencia = selectedType.type === 'FREQUENCIA';
+    const { titulo, valorInicial, valorAlvo, porque, tipoDeMeta, valorDaMeta } = formData;
 
     return (
       <>
@@ -110,6 +116,7 @@ function ModalObjetivos({ isOpen, onClose, onCreateCard }) { // Recebe onCreateC
               <input type="text" name="titulo" className="form-input" value={titulo} onChange={handleChange} />
             </label>
             
+            {/* CAMPOS DE PERDA DE PESO */}
             {isQuantitativo && (
               <>
                 <label>
@@ -123,13 +130,30 @@ function ModalObjetivos({ isOpen, onClose, onCreateCard }) { // Recebe onCreateC
               </>
             )}
 
+            {/* NOVOS CAMPOS DE FREQUÊNCIA */}
+            {isFrequencia && (
+              <div className="form-row">
+                <label className="form-label-half">
+                  Tipo de Meta:
+                  <select name="tipoDeMeta" className="form-input" value={tipoDeMeta} onChange={handleChange}>
+                    <option value="semanal">Semanal</option>
+                    <option value="mensal">Mensal</option>
+                  </select>
+                </label>
+                <label className="form-label-half">
+                  Valor (Nº de vezes):
+                  <input type="number" name="valorDaMeta" className="form-input" value={valorDaMeta} onChange={handleChange} />
+                </label>
+              </div>
+            )}
+
             <label>
               Meu "Porquê" (Sua motivação):
               <textarea name="porque" className="form-textarea" value={porque} onChange={handleChange} placeholder="Ex: Quero ter mais energia para..." rows="4"></textarea>
             </label>
           </div>
           
-          {/* Coluna da Direita: Pré-visualização Interativa */}
+          {/* Coluna da Direita: Pré-visualização */}
           <div className="modal-preview">
             <h4>Pré-visualização do Card:</h4>
             
@@ -138,36 +162,27 @@ function ModalObjetivos({ isOpen, onClose, onCreateCard }) { // Recebe onCreateC
                 <h3>{titulo || "Seu Título Aqui"}</h3>
               </div>
               
-              <div className="preview-card-layout">
-                <div className="preview-main-content">
+              <div className="preview-main-content">
+                {/* Preview de Frequência */}
+                {isFrequencia && (
+                  <div className="preview-freq-meta">
+                    Meta: {valorDaMeta}x {tipoDeMeta}
+                  </div>
+                )}
+                
+                {/* Preview de Perda de Peso */}
+                {isQuantitativo && (
                   <div className="preview-progress-info">
                     <span>Progresso: 0%</span>
                     <div className="preview-progress-bar-container">
                       <div className="preview-progress-bar" style={{ width: `0%` }}></div>
                     </div>
                   </div>
-                  
-                  <div className="preview-porque-section">
-                    <h4>Meu "Porquê":</h4>
-                    <p>{porque || "Sua motivação aparecerá aqui..."}</p>
-                  </div>
-                </div>
+                )}
 
-                <div className="preview-sidebar">
-                  <h4>Metas</h4>
-                  <div className="preview-meta-fields">
-                    <div className="preview-meta-field">
-                      <span>Inicial:</span>
-                      <span>{valorInicial || 0} kg</span>
-                    </div>
-                    <div className="preview-meta-field final">
-                      <span>Final:</span>
-                      <span>{valorAlvo || 0} kg</span>
-                    </div>
-                  </div>
-                  <ul className="preview-sub-metas-list">
-                    <li className="preview-sub-meta-item">🎯 <span>...</span></li>
-                  </ul>
+                <div className="preview-porque-section">
+                  <h4>Meu "Porquê":</h4>
+                  <p>{porque || "Sua motivação aparecerá aqui..."}</p>
                 </div>
               </div>
             </div>
@@ -180,7 +195,6 @@ function ModalObjetivos({ isOpen, onClose, onCreateCard }) { // Recebe onCreateC
           <button className="form-button-back" onClick={handleBack}>
             Voltar
           </button>
-          {/* 3. CORREÇÃO: O onClick está ligado ao handleSubmit */}
           <button className="form-button-create" onClick={handleSubmit}>
             Aceitar e Criar Card
           </button>
