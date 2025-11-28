@@ -4,7 +4,9 @@
     background-color: #a3af8c; /* Fundo verde musgo */
     border: 1px solid #7d876d; 
     border-radius: 12px;
-    padding: 20px;
+    padding: 15px;
+    width: 100%;
+    max-width: 280px;
     
     /* CORREÇÃO CRÍTICA: 
      * Necessário para o painel "flyout" e a seta lateral
@@ -47,4 +49,313 @@
   border-radius: 4px;
   padding: 5px 10px;
   cursor: pointer;
+}
+
+/* === PÁGINA DE OBJETIVOS === */
+.objetivos-page {
+  display: flex;
+  gap: 30px;
+  padding: 30px;
+  margin-left: 80px; /* Espaço para o menu lateral */
+  min-height: 100vh;
+  background-color: #c1caa5;
+}
+
+.objetivos-coluna-esquerda {
+  width: 280px;
+  flex-shrink: 0;
+}
+
+.objetivos-titulo {
+  color: #333;
+  font-size: 2rem;
+  margin-bottom: 25px;
+}
+
+.objetivos-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Coluna Central - Ficha */
+.objetivos-coluna-central {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* Coluna Direita - Calendário */
+.objetivos-coluna-direita {
+  width: 320px;
+  flex-shrink: 0;
+}
+
+.calendario-container {
+  background-color: #f0f0e0;
+  border: 1px solid #c1caa5;
+  border-radius: 12px;
+  padding: 20px;
+  position: sticky;
+  top: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.calendario-container h2 {
+  color: #333;
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* Estilização do react-calendar */
+.calendario-container .react-calendar {
+  width: 100%;
+  background: transparent;
+  border: none;
+  font-family: inherit;
+}
+
+.calendario-container .react-calendar__navigation button {
+  color: #555;
+  font-weight: 600;
+}
+
+.calendario-container .react-calendar__tile {
+  border-radius: 8px;
+  color: #333;
+}
+
+.calendario-container .react-calendar__tile--now {
+  background: #d8e0b4;
+}
+
+.calendario-container .react-calendar__tile:hover {
+  background: #c1caa5;
+}
+
+/* Dias marcados no calendário */
+.dia-foi {
+  background-color: #22c55e !important;
+  color: white !important;
+  border-radius: 50% !important;
+}
+
+.dia-naofoi {
+  background-color: #dc2626 !important;
+  color: white !important;
+  border-radius: 50% !important;
+}
+
+/* Legenda do calendário */
+.calendario-legenda {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #d8e0b4;
+}
+
+.legenda-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.legenda-cor {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.legenda-cor.foi {
+  background-color: #22c55e;
+}
+
+.legenda-cor.naofoi {
+  background-color: #dc2626;
+}
+
+/* Card de Ficha (IA) na coluna direita */
+.card-ficha {
+  background-color: #a3af8c;
+  border: 1px solid #7d876d;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-ficha h2 {
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.card-descricao {
+  color: #555;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+.upload-area {
+  border: 2px dashed #7d876d;
+  border-radius: 10px;
+  padding: 25px 15px;
+  text-align: center;
+  background-color: #d8e0b4;
+  transition: all 0.3s ease;
+}
+
+.upload-area:hover {
+  border-color: #555;
+  background-color: #c1caa5;
+}
+
+.upload-area.has-image {
+  padding: 10px;
+}
+
+.upload-icon {
+  font-size: 2rem;
+  color: #7d876d;
+  margin-bottom: 10px;
+}
+
+.upload-area p {
+  color: #555;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+}
+
+.upload-area span {
+  color: #7d876d;
+  font-size: 0.8rem;
+}
+
+.ficha-preview {
+  max-width: 100%;
+  max-height: 150px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.upload-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #555;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+.upload-button:hover {
+  background-color: #333;
+}
+
+.processar-button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.processar-button:hover:not(:disabled) {
+  background-color: #1d4ed8;
+}
+
+.processar-button:disabled {
+  background-color: #7d876d;
+  cursor: not-allowed;
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #fef2f2;
+  color: #dc2626;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+/* Resultado inline */
+.resultado-inline {
+  margin-top: 15px;
+  padding: 15px;
+  background-color: #f0f0e0;
+  border-radius: 8px;
+}
+
+.resultado-header-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.resultado-header-inline h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+.success-icon {
+  color: #22c55e;
+}
+
+.exercicios-inline {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 10px 0;
+}
+
+.exercicios-inline li {
+  padding: 5px 0;
+  border-bottom: 1px solid #d8e0b4;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.btn-nova-inline {
+  background-color: #555;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.btn-nova-inline:hover {
+  background-color: #333;
 }
