@@ -4,9 +4,10 @@
   background-color: #a3af8c; 
   border: 2px dashed #7d876d; /* Borda tracejada mais escura */
   border-radius: 12px;       
-  padding: 20px;
-  
-  height: 250px; 
+  padding: 15px;
+  width: 100%;
+  max-width: 280px;
+  height: 120px; 
   box-sizing: border-box; 
 
   display: flex;
@@ -22,7 +23,7 @@
 
 /* Estilo do ícone "+" */
 .card-adicionar .plus-icon {
-  font-size: 80px;
+  font-size: 50px;
   font-weight: 200;
   line-height: 1;
   
