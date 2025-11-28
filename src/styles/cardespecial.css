@@ -4,55 +4,47 @@
 .expand-metas-button {
   position: absolute;
   top: 50%;
-  right: -16px; /* Metade para fora, metade para dentro do card */
+  right: -16px; 
   transform: translateY(-50%);
-  
-  background: #f0f0e0; /* Fundo claro (do modal) */
-  color: #555; /* Ícone escuro */
-  border: 1px solid #c1caa5; /* Borda do tema */
+  background: #f0f0e0; 
+  color: #555; 
+  border: 1px solid #c1caa5; 
   border-radius: 50%;
   width: 32px;
   height: 32px;
   font-size: 24px;
-  line-height: 30px; /* Ajuste para centralizar o ícone */
-  
+  line-height: 30px; 
   cursor: pointer;
-  z-index: 10; /* Fica em cima do painel */
+  z-index: 10; 
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   transition: all 0.2s ease;
 }
 .expand-metas-button:hover {
-  background-color: #a3af8c; /* Verde musgo no hover */
+  background-color: #a3af8c; 
   color: white;
-  transform: translateY(-50%) scale(1.1); /* Efeito "Pop" */
+  transform: translateY(-50%) scale(1.1);
 }
 
 /* --- Submenu "Flyout" de Metas (Painel Branco) --- */
 .metas-flyout-panel {
   position: absolute;
-  top: 20px; /* Alinha com o topo do conteúdo do card */
-  left: 100%; /* Começa na borda direita do card */
-  
-  margin-left: 10px; /* Espaço entre o card e o painel */
-  
-  width: 200px; /* Largura fixa */
-  background: #f0f0e0; /* Fundo claro */
-  color: #333; /* Texto escuro */
-  
+  top: 20px; 
+  left: 100%; 
+  margin-left: 10px; 
+  width: 200px; 
+  background: #f0f0e0; 
+  color: #333; 
   border: 1px solid #c1caa5;
   border-radius: 8px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.2);
   padding: 15px;
-  z-index: 5; /* Fica abaixo do botão/seta */
-  
-  /* Animação de "aparecer" */
+  z-index: 5; 
   animation: fadeInFlyout 0.2s ease-out;
 }
 @keyframes fadeInFlyout {
   from { opacity: 0; transform: translateX(-10px); }
   to { opacity: 1; transform: translateX(0); }
 }
-
 .metas-flyout-panel h4 {
   margin-top: 0;
   margin-bottom: 10px;
@@ -68,7 +60,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #c1caa5; /* Borda mais clara */
+  border-bottom: 1px solid #c1caa5; 
   padding-bottom: 15px;
   margin-bottom: 15px;
 }
@@ -76,11 +68,11 @@
   flex-grow: 1;
   margin: 0;
   color: #333;
-  font-size: 1.4rem; /* Título com mais destaque */
+  font-size: 1.4rem; 
   font-weight: 600;
 }
 .delete-button-header {
-  background-color: #a3af8c; /* Cor do card, mais sutil */
+  background-color: #a3af8c; 
   color: #555;
   border: 1px solid #7d876d;
   border-radius: 50%;
@@ -88,16 +80,16 @@
   height: 28px;
   cursor: pointer;
   font-weight: bold;
-  line-height: 26px; /* Ajuste para centralizar o 'X' */
+  line-height: 26px; 
   transition: all 0.2s ease;
 }
 .delete-button-header:hover {
-  background-color: #dc2626; /* Vermelho SÓ no hover */
+  background-color: #dc2626; 
   color: white;
   border-color: #dc2626;
 }
 
-/* --- Barra de Progresso (Clareza) --- */
+/* --- Barra de Progresso (Azul) --- */
 .progresso-info {
   margin-bottom: 20px;
   color: #555;
@@ -105,30 +97,23 @@
   font-size: 0.9rem;
 }
 .progress-bar-container {
-  width: 100% !important;
-  background-color: #c1caa5 !important; /* Fundo mais claro */
-  border: 2px solid #000 !important; /* BORDA PRETA */
+  width: 100%;
+  background-color: #c1caa5; 
   border-radius: 8px;
-  height: 12px !important; /* Mais grossa */
-  overflow: hidden;
-  position: relative !important;
-  display: block !important;
-  box-sizing: border-box !important; /* Garante que a borda não aumente o tamanho total */
+  height: 12px; 
+  overflow: hidden; 
 }
 .progress-bar {
-  background-color: #2600ff !important; /* Cor de progresso escura */
-  border-radius: 6px; /* Um pouco menor que o container para não sobrepor a borda */
-  height: 100% !important;
-  transition: width 0.5s ease-in-out !important;
-  min-width: 0 !important;
-  display: block !important;
-  position: relative !important;
+  background-color: #2563eb; /* Azul forte */
+  border-radius: 8px;
+  height: 100%;
+  transition: width 0.5s ease-in-out; 
 }
 
-/* --- Seção "Porquê" (Hierarquia) --- */
+/* --- Seção "Porquê" --- */
 .porque-section {
-  background-color: #d8e0b4; /* Verde bem claro (quase bege) */
-  color: #333; /* Texto escuro */
+  background-color: #d8e0b4; 
+  color: #333; 
   border-radius: 8px;
   padding: 12px 15px;
   margin-bottom: 20px;
@@ -157,19 +142,19 @@
   justify-content: space-between;
   align-items: center;
   font-size: 14px;
-  background-color: #93997f; /* Limpo */
-  border: 1px solid #93997f; /* Borda sutil */
-  color: #000000;
+  background-color: transparent; 
+  border: 1px solid #c1caa5; 
+  color: #333;
   padding: 8px 12px;
   border-radius: 6px;
 }
 .meta-field.final {
-  background-color: #555; /* Destaque forte para a meta final */
+  background-color: #555; 
   border-color: #555;
   color: white;
 }
 .meta-field span:first-child {
-  color: #000000;
+  color: #555;
   font-size: 0.9rem;
 }
 .meta-field.final span:first-child {
@@ -180,7 +165,7 @@
   font-size: 1rem;
 }
 
-/* --- Adicionar Progresso (CTA - Call to Action) --- */
+/* --- Adicionar Progresso (Input) --- */
 .add-progresso {
   display: flex;
   gap: 10px;
@@ -188,7 +173,7 @@
 }
 .add-progresso input {
   flex-grow: 1;
-  background-color: #d8e0b4; /* Mesmo verde claro do "porquê" */
+  background-color: #d8e0b4; 
   color: #333;
   border: 1px solid #c1caa5;
   border-radius: 6px;
@@ -199,7 +184,7 @@
   color: #7d876d;
 }
 .add-progresso button {
-  background-color: #555; /* Cor de destaque (CTA) */
+  background-color: #555; 
   color: white;
   border: none;
   border-radius: 6px;
@@ -215,7 +200,7 @@
 
 /* --- Botão de Expandir Detalhes (Seta de baixo) --- */
 .expand-details-button {
-  background-color: #f0f0e0; /* Fundo claro (do modal) */
+  background-color: #f0f0e0; 
   border: 1px solid #c1caa5;
   color: #555;
   padding: 10px 15px;
@@ -226,8 +211,7 @@
   font-size: 0.9rem;
   text-align: left;
   transition: all 0.2s ease;
-  
-  display: flex; /* Para alinhar a seta com o texto */
+  display: flex; 
   align-items: center;
   gap: 8px;
 }
@@ -235,18 +219,14 @@
   background-color: #d8e0b4;
   color: #333;
 }
-
-/* A Seta (►) */
 .expand-details-button .arrow {
   display: inline-block;
   font-size: 0.7rem;
   transition: transform 0.2s ease-in-out;
 }
-/* Seta apontando para baixo (quando 'down' está ativo) */
 .expand-details-button .arrow.down {
   transform: rotate(90deg);
 }
-/* Seta apontando para a direita (padrão) */
 .expand-details-button .arrow.right {
   transform: rotate(0deg);
 }
@@ -254,13 +234,11 @@
 
 /* --- Conteúdo Expansível (Seta de baixo) --- */
 .expandable-view-container {
-  background-color: #f0f0e0; /* Fundo claro para a seção */
+  background-color: #f0f0e0; 
   border: 1px solid #d8e0b4;
   border-radius: 8px;
   padding: 20px;
   margin-top: 10px;
-  
-  /* Animação suave de "aparecer" */
   animation: fadeIn 0.3s ease-in-out;
 }
 @keyframes fadeIn {
@@ -273,7 +251,6 @@
   grid-template-columns: 1fr 1fr;
   gap: 25px;
 }
-
 
 /* --- Lista de Sub-Metas (Polida) --- */
 .sub-metas-list {
@@ -289,7 +266,6 @@
   font-weight: 500;
   padding: 8px 5px;
 }
-/* Cor padrão (no painel branco) */
 .metas-flyout-panel .sub-meta-item {
   color: #555;
   border-bottom: 1px solid #d8e0b4;
@@ -302,14 +278,6 @@
 .metas-flyout-panel .sub-meta-item.concluida span {
   opacity: 0.6; 
 }
-.metas-flyout-panel .sub-meta-item.regredida {
-  color: #dc2626;
-  font-weight: 500;
-}
-.metas-flyout-panel .sub-meta-item.regredida span {
-  opacity: 0.8;
-}
-
 
 /* --- Histórico e Observações (Polido) --- */
 .historico h4, .observacoes-section h4 {
@@ -318,7 +286,6 @@
   color: #555;
   font-size: 1.2rem;
 }
-
 .historico ul, .obs-list {
   list-style: none;
   padding-left: 0;
@@ -330,9 +297,8 @@
   border-bottom: 1px solid #d8e0b4;
   color: #555;
 }
-
 .obs-item {
-  background-color: #fdfdfb; /* Fundo branco para a nota */
+  background-color: #fdfdfb; 
   border: 1px solid #d8e0b4;
   padding: 8px;
   border-radius: 4px;
@@ -374,4 +340,146 @@
 }
 .add-observacao button:hover {
   background-color: #333;
+}
+
+/* --- UX: FEEDBACK DE CLIQUE --- */
+.delete-button-header:active,
+.expand-metas-button:active,
+.expand-details-button:active,
+.add-progresso button:active,
+.add-observacao button:active {
+  transform: scale(0.97);
+  opacity: 0.9;
+  transition: transform 0.05s ease;
+}
+.expand-metas-button:active {
+  transform: translateY(-50%) scale(1.05);
+}
+
+
+/* * =============================================================
+ * NOVOS ESTILOS PARA CARD DE FREQUÊNCIA
+ * =============================================================
+*/
+
+/* --- Cores dos Dias do Calendário --- */
+.dia-foi {
+  background-color: #2563eb !important; /* 1º Clique: Azul Forte */
+  color: white !important;
+  border-radius: 50%;
+}
+.dia-naofoi {
+  background-color: #dc2626 !important; /* 2º Clique: Vermelho */
+  color: white !important;
+  border-radius: 50%;
+}
+
+/* --- Estilo da Seção de Meta (Bloqueada/Editável) --- */
+.freq-meta-container {
+  margin-bottom: 15px;
+}
+
+/* Modo de Visualização (Bloqueado) */
+.freq-view-mode {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #d8e0b4;
+  color: #333;
+  border-radius: 8px;
+  padding: 12px 15px;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+.edit-meta-btn {
+  background: none;
+  border: 1px solid #7d876d;
+  color: #555;
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.edit-meta-btn:hover {
+  background-color: #555;
+  color: white;
+}
+
+/* Modo de Edição (Campos) */
+.freq-edit-mode {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.freq-edit-mode .form-input {
+  background-color: #d8e0b4;
+  color: #333;
+  border: 1px solid #c1caa5;
+  border-radius: 6px;
+  padding: 8px;
+}
+.freq-edit-mode select.form-input {
+  flex-basis: 150px;
+}
+.freq-edit-mode input.form-input {
+  flex-basis: 80px;
+}
+
+/* Botões de Salvar / Cancelar */
+.freq-save-btn {
+  background-color: #555;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 9px 15px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.freq-cancel-btn {
+  background-color: #dc2626;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 9px 12px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* --- Container do Calendário (já existia, polido) --- */
+.expandable-view-container.calendar-container {
+  padding: 10px; 
+}
+
+/* Ajustes no calendário 'react-calendar' para o tema */
+.calendar-container .react-calendar {
+  width: 100%;
+  background: #f0f0e0; /* Fundo claro (do painel) */
+  border: 1px solid #d8e0b4;
+  color: #333;
+  border-radius: 8px;
+}
+.react-calendar__navigation button {
+  color: #a3af8c; /* Verde musgo */
+  font-weight: bold;
+}
+.react-calendar__month-view__weekdays__weekday {
+  color: #555;
+  text-decoration: none;
+  font-weight: 600;
+}
+.react-calendar__tile {
+  color: #333;
+  border-radius: 6px;
+}
+.react-calendar__tile:disabled {
+  background-color: #f0f0e0;
+  color: #ccc;
+}
+.react-calendar__tile--now {
+  background: #d8e0b4; /* Dia de hoje */
+}
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+  background: #c1caa5; /* Hover */
 }
