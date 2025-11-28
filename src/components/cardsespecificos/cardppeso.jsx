@@ -2,16 +2,21 @@
 import React, { useState } from 'react';
 import '../../styles/cardobjetivos.css';
 import '../../styles/cardespecial.css';
+// Importa o hook de notificações
+import { useNotifications } from '../../hooks/useNotifications'; 
 
 function CardPerdaPeso({ objetivo, onDelete, onUpdate }) {
-  // Estados para as duas views (mutuamente exclusivas)
-  const [isDetailsOpen, setIsDetailsOpen] = useState(false); // Seta de baixo (Detalhes)
-  const [isMetasViewOpen, setIsMetasViewOpen] = useState(false); // Seta lateral (Metas)
+  // Hooks de Notificação
+  const { notifySuccess, notifyError } = useNotifications();
+
+  // Estados de View (Exclusão Mútua)
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const [isMetasViewOpen, setIsMetasViewOpen] = useState(false);
 
   const [novoPeso, setNovoPeso] = useState('');
   const [novaObservacao, setNovaObservacao] = useState('');
 
-  // LÓGICA DE PROGRESSO (Correta, 25%)
+  // --- LÓGICA DE CÁLCULO (Porcentagem) ---
   const pesoAtual = objetivo.progresso.length > 0 
     ? objetivo.progresso[objetivo.progresso.length - 1].valor 
     : objetivo.valorInicial;
@@ -32,17 +37,7 @@ function CardPerdaPeso({ objetivo, onDelete, onUpdate }) {
     ? Math.min(100, Math.round((progressoNumerador / progressoDenominador) * 100)) 
     : 0;
 
-  // Debug: console.log para verificar o progresso
-  console.log('Progresso Debug:', {
-    pesoAtual,
-    valorInicial: objetivo.valorInicial,
-    valorAlvo: objetivo.valorAlvo,
-    progressoNumerador,
-    progressoDenominador,
-    progressoPerc
-  });
-
-  // --- LÓGICA DE ADICIONAR PROGRESSO (COM CHECK DE SUB-METAS E REGRESSÃO) ---
+  // --- LÓGICA DE ATUALIZAR PESO (Com Notificações) ---
   const handleAddProgresso = () => {
     if (novoPeso === '' || isNaN(parseFloat(novoPeso))) return;
     const novoValorPeso = parseFloat(novoPeso);
@@ -51,32 +46,39 @@ function CardPerdaPeso({ objetivo, onDelete, onUpdate }) {
       valor: novoValorPeso,
     };
     
-    const isPerda = objetivo.valorAlvo < objetivo.valorInicial;
-    
     const novasSubMetas = objetivo.subMetas.map(meta => {
-      // Se já estava concluída, verifica se regrediu
-      if (meta.concluida) {
-        // Verifica se houve regressão
-        const regrediu = isPerda 
-          ? novoValorPeso > meta.valor  // Para perda: peso voltou a subir acima da meta
-          : novoValorPeso < meta.valor; // Para ganho: peso caiu abaixo da meta
-        
-        if (regrediu) {
-          return { ...meta, concluida: false, regredida: true };
+      const metaAntiga = meta; // Estado anterior
+      // Mantém o histórico se já foi atingida alguma vez
+      let foiAtingida = metaAntiga.foiAtingidaAlgumaVez || false;
+      
+      const isPerda = objetivo.valorAlvo < objetivo.valorInicial;
+      let agoraEstaAtingida = false;
+      
+      // Verifica se atingiu a meta AGORA
+      if (isPerda && novoValorPeso <= meta.valor) {
+        agoraEstaAtingida = true;
+      }
+      if (!isPerda && novoValorPeso >= meta.valor) {
+        agoraEstaAtingida = true;
+      }
+
+      // Lógica de Notificação (Toast)
+      if (agoraEstaAtingida) {
+        foiAtingida = true; // Marca histórico
+        if (!metaAntiga.concluida) {
+          // Se não estava concluída e agora está: Sucesso!
+          notifySuccess(`Meta de ${meta.valor}kg atingida! 🎉`);
         }
-        return meta; // Mantém concluída
+      } else if (metaAntiga.concluida) {
+        // Se estava concluída e agora NÃO está mais: Regressão.
+        notifyError(`Você saiu da faixa de ${meta.valor}kg... Foco! 😢`);
       }
-      
-      // Se não estava concluída, verifica se atingiu agora
-      const atingiu = isPerda 
-        ? novoValorPeso <= meta.valor 
-        : novoValorPeso >= meta.valor;
-      
-      if (atingiu) {
-        return { ...meta, concluida: true, regredida: false };
-      }
-      
-      return { ...meta, regredida: false };
+
+      return { 
+        ...meta, 
+        concluida: agoraEstaAtingida, 
+        foiAtingidaAlgumaVez: foiAtingida 
+      };
     });
 
     onUpdate(objetivo.id, {
@@ -86,7 +88,7 @@ function CardPerdaPeso({ objetivo, onDelete, onUpdate }) {
     setNovoPeso('');
   };
 
-  // --- LÓGICA PARA ADICIONAR OBSERVAÇÕES ---
+  // --- LÓGICA DE OBSERVAÇÕES ---
   const handleAddObservacao = () => {
     if (novaObservacao.trim() === '') return;
     const novaNota = {
@@ -99,70 +101,43 @@ function CardPerdaPeso({ objetivo, onDelete, onUpdate }) {
     setNovaObservacao('');
   };
 
-  // Apenas para o TÍTULO
   const handleUpdateTitulo = (e) => {
     onUpdate(objetivo.id, { titulo: e.target.innerText });
   };
 
-  // --- MANIPULADORES DE VIEW (COM EXCLUSÃO MÚTUA) ---
-  
-  // Abre/Fecha a "View de Detalhes" (de baixo)
+  // --- TOGGLES ---
   const toggleDetailsView = () => {
-    setIsDetailsOpen(!isDetailsOpen); // Alterna o estado de detalhes
-    setIsMetasViewOpen(false); // Força o fechamento da view de metas
+    setIsDetailsOpen(!isDetailsOpen);
+    setIsMetasViewOpen(false);
   };
-
-  // Abre/Fecha a "View de Metas" (lateral)
   const toggleMetasView = () => {
-    setIsMetasViewOpen(!isMetasViewOpen); // Alterna o estado de metas
-    setIsDetailsOpen(false); // Força o fechamento da view de detalhes
+    setIsMetasViewOpen(!isMetasViewOpen);
+    setIsDetailsOpen(false);
   };
-
 
   return (
-    // O .card-objetivo já tem position: relative (do cardobjetivos.css)
     <div className="card-objetivo card-perda-peso">
       
-      {/* --- CABEÇALHO (Título e Botão de Excluir) --- */}
       <div className="card-header">
-        <h3 
-          contentEditable 
-          suppressContentEditableWarning 
-          onBlur={handleUpdateTitulo}
-        >
+        <h3 contentEditable suppressContentEditableWarning onBlur={handleUpdateTitulo}>
           {objetivo.titulo}
         </h3>
-        <button onClick={() => onDelete(objetivo.id)} className="delete-button-header">
-          X
-        </button>
+        <button onClick={() => onDelete(objetivo.id)} className="delete-button-header">X</button>
       </div>
 
-      {/* --- CONTEÚDO PRINCIPAL (Sempre visível) --- */}
       <div className="default-view-container">
-        
-        {/* Barra de Progresso - CORRIGIDA */}
         <div className="progresso-info">
           <span>Progresso: {progressoPerc}%</span>
           <div className="progress-bar-container">
-            <div 
-              className="progress-bar" 
-              style={{ 
-                width: `${progressoPerc}%`,
-                minWidth: progressoPerc > 0 ? '2%' : '0%', // Mínimo visível quando há progresso
-                height: '100%',
-                display: 'block'
-              }}
-            ></div>
+            <div className="progress-bar" style={{ width: `${progressoPerc}%` }}></div>
           </div>
         </div>
         
-        {/* Campo "Porquê" */}
         <div className="porque-section">
           <h4>Meu "Porquê":</h4>
           <p>{objetivo.porque || "Nenhuma motivação definida."}</p>
         </div>
         
-        {/* Campos de Meta (Inicial e Final) */}
         <div className="meta-fields-readonly stacked">
           <div className="meta-field">
             <span>Peso Inicial:</span>
@@ -174,7 +149,6 @@ function CardPerdaPeso({ objetivo, onDelete, onUpdate }) {
           </div>
         </div>
 
-        {/* Adicionar Progresso (Input) */}
         <div className="add-progresso">
           <input
             type="number"
@@ -185,79 +159,63 @@ function CardPerdaPeso({ objetivo, onDelete, onUpdate }) {
           <button onClick={handleAddProgresso}>Atualizar</button>
         </div>
 
-        {/* Botão de Expandir "Detalhes" (Seta de baixo) */}
         <button className="expand-details-button" onClick={toggleDetailsView}>
           <span className={`arrow ${isDetailsOpen ? 'down' : 'right'}`}>►</span>
           Detalhes (Histórico e Notas)
         </button>
 
-        {/* --- CONTEÚDO EXPANSÍVEL (Detalhes) --- */}
-        {/* Este é o painel que expande para BAIXO */}
         {isDetailsOpen && (
           <div className="expandable-view-container details-view-container">
-            
-            {/* Histórico de Peso */}
             <div className="historico">
               <h4>Histórico de Peso:</h4>
               {objetivo.progresso.length > 0 ? (
                 <ul>
                   {objetivo.progresso.slice().reverse().map((item, index) => (
-                    <li key={index}>
-                      {item.data}: {item.valor} {objetivo.unidade}
-                    </li>
+                    <li key={index}>{item.data}: {item.valor} {objetivo.unidade}</li>
                   ))}
                 </ul>
-              ) : (
-                <p className="historico-vazio">Nenhum registro adicionado.</p>
-              )}
+              ) : <p className="historico-vazio">Vazio.</p>}
             </div>
 
-            {/* Seção de Observações */}
             <div className="observacoes-section">
               <h4>Observações:</h4>
               {(objetivo.observacoes || []).length > 0 ? (
                 <ul className="obs-list">
                   {objetivo.observacoes.slice().reverse().map((item, index) => (
-                    <li key={index} className="obs-item">
-                      <strong>{item.data}:</strong> {item.texto}
-                    </li>
+                    <li key={index} className="obs-item"><strong>{item.data}:</strong> {item.texto}</li>
                   ))}
                 </ul>
-              ) : (
-                <p className="historico-vazio">Nenhuma observação.</p>
-              )}
+              ) : <p className="historico-vazio">Nenhuma observação.</p>}
               
               <div className="add-observacao">
                 <textarea
-                  placeholder="Adicionar observação..."
+                  placeholder="Nova observação..."
                   value={novaObservacao}
                   onChange={(e) => setNovaObservacao(e.target.value)}
                   rows="2"
                 ></textarea>
-                <button onClick={handleAddObservacao}>Salvar Nota</button>
+                <button onClick={handleAddObservacao}>Salvar</button>
               </div>
             </div>
           </div>
         )}
       </div>
 
-      {/* --- BOTÃO DA SETA LATERAL (Posicionado absolutamente) --- */}
+      {/* Seta Lateral */}
       <button className="expand-metas-button" onClick={toggleMetasView}>
         {isMetasViewOpen ? '‹' : '›'}
       </button>
 
-      {/* --- SUBMENU "FLYOUT" DE METAS (Posicionado absolutamente) --- */}
-      {/* Este é o painel que "flutua" à DIREITA */}
+      {/* Flyout de Metas */}
       {isMetasViewOpen && (
         <div className="metas-flyout-panel">
           <h4>Sub-Metas:</h4>
           <ul className="sub-metas-list">
             {objetivo.subMetas.map((meta) => (
-              <li key={meta.id} className={`sub-meta-item ${meta.concluida ? 'concluida' : ''} ${meta.regredida ? 'regredida' : ''}`}>
-                {meta.regredida ? '😢' : meta.concluida ? '✅' : '🎯'}
-                <span>
-                  {meta.valor} {objetivo.unidade}
-                </span>
+              <li key={meta.id} className={`sub-meta-item ${meta.concluida ? 'concluida' : ''}`}>
+                {/* Lógica Visual do Emoji */}
+                {meta.concluida ? '✅' : (meta.foiAtingidaAlgumaVez ? '😢' : '🎯')}
+                <span>{meta.valor} {objetivo.unidade}</span>
               </li>
             ))}
           </ul>
