@@ -1,49 +1,76 @@
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import NXLogo from '../assets/nxlogo.png'
+// src/components/Menu.jsx
 
-function Menu({children}) {
+import React from 'react';
+import { Link } from 'react-router-dom';
+import logo from '../assets/nxlogo.png';
+
+// Ícones
+import { 
+  FaBullseye,      // Objetivos
+  FaDumbbell,      // Academia
+  FaPiggyBank,     // Finanças
+  FaRunning,       // Equipamento
+  FaPlane,         // Viagem
+} from 'react-icons/fa';
+
+import './../styles/menu.css';
+
+function Menu() {
   return (
-    <>
-    <Navbar expand="lg" className="navbar">
-      <Container>
-        <Navbar.Brand href="#home" id='Marca'><img src={NXLogo} width={50} alt="logo" className="me-2" />NeXo</Navbar.Brand>
-        <Navbar.Toggle/>
-        <Navbar.Collapse >
-          <Nav>
-            <Nav.Link href="#home" id='TextoNav'>Home</Nav.Link>
-            <Nav.Link href="#link" id='TextoNav'>Anotações</Nav.Link>
-            <NavDropdown title="Financeiro" id='TextoNav'>
-              <NavDropdown.Item href="#action/3.1" id='TextoNav'>Gastos e Objetivos</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3" id='TextoNav'>Metas</NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
-
-{children}
-
-    <footer className="custom-footer text-center text-lg-start">
-        <div className="text-center p-3">
-          © 2025 MaG:{}
-          <a
-            className="footer-link"
-            href=""
-            target="_blank"
-            rel="noreferrer"
-          >
-            NeXo
-          </a>
-        </div>
-      </footer>
-
-
-
-
-</>
+    <nav className="menu-container">
+      <div className="menu-logo">
+        <img src={logo} alt="NeXo Logo" />
+      </div>
+      
+      <ul className="menu-itens">
+        
+        {/* Item 1: Objetivos (com Dropdown) */}
+        <li className="menu-item dropdown">
+          <Link to="/objetivos">
+            <FaBullseye className="menu-icon" />
+            <span className="menu-text">Objetivos</span>
+          </Link>
+          
+          <ul className="dropdown-content">
+            <li>
+              <Link to="/objetivos/academia">
+                <FaDumbbell className="dropdown-icon" />
+                <span>Academia</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/objetivos/equipamento">
+                <FaRunning className="dropdown-icon" />
+                <span>Equipamento</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/objetivos/viagem">
+                <FaPlane className="dropdown-icon" />
+                <span>Viagem</span>
+              </Link>
+            </li>
+          </ul>
+        </li>
+        
+        {/* Item 2: Academia (Ficha) */}
+        <li className="menu-item">
+          <Link to="/academia">
+            <FaDumbbell className="menu-icon" />
+            <span className="menu-text">Academia</span>
+          </Link>
+        </li>
+        
+        {/* Item 3: Finanças */}
+        <li className="menu-item">
+          <Link to="/financas">
+            <FaPiggyBank className="menu-icon" />
+            <span className="menu-text">Finanças</span>
+          </Link>
+        </li>
+        
+      </ul>
+    </nav>
   );
 }
 
